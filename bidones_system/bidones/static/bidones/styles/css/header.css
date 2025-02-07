@@ -1,0 +1,118 @@
+@charset "UTF-8";
+/* Revisión general */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+@font-face {
+  font-family: 'CooVeltica';
+  src: url("../../fonts/Coolvetica Rg.otf") format("truetype"); }
+body {
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  min-height: 100vh; }
+
+header {
+  font-family: 'CooVeltica', sans-serif;
+  width: 100%;
+  padding: 10%;
+  text-align: center;
+  color: white;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  background-image: url("../../assets/header-wallpaper.jpg");
+  background-size: cover;
+  position: relative; }
+
+.titulo {
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.674);
+  transition: 1s all; }
+
+.titulo:hover {
+  transform: scale(1.2, 1.2);
+  text-shadow: 8px 8px 20px #0558fd; }
+
+.logo {
+  width: 40%;
+  height: auto;
+  border-radius: 70%;
+  transition: 1s all;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: rgba(234, 234, 234, 0.796);
+  border: rgba(234, 234, 234, 0.415) solid 3px;
+  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5);
+  animation: girar 2s linear; }
+
+.logo:hover {
+  transform: scale(1.2, 1.2);
+  background-color: #eaeaea;
+  border: #1a38b2 solid 3px;
+  box-shadow: 8px 8px 20px #0558fd; }
+
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+    /* Inicia sin rotación */ }
+  to {
+    transform: rotate(360deg);
+    /* Gira 360 grados */ } }
+.navigation {
+  display: flex;
+  flex-direction: column;
+  /* Esto hace que los elementos se alineen verticalmente */
+  gap: 1rem;
+  /* Añade espacio entre los elementos */
+  list-style-type: none;
+  /* Elimina los puntos de lista */
+  padding: 0; }
+
+.navigation > li {
+  display: block;
+  /* Asegura que cada elemento sea un bloque */ }
+
+.navigation > li > a {
+  display: block;
+  /* Hace que los enlaces sean bloques para que ocupen todo el espacio */
+  padding: 1rem;
+  /* Agrega un poco de espacio alrededor del texto */
+  color: white;
+  text-decoration: none;
+  /* Elimina el subrayado */
+  border-radius: 8px;
+  /* Redondea las esquinas */
+  transition: 0.3s ease;
+  margin-left: 5%;
+  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5); }
+
+.navigation > li > a:hover {
+  box-shadow: 8px 8px 20px #0558fd; }
+
+.navigation > li > button {
+  color: white;
+  font-size: 1.2rem;
+  /* Aumenta el tamaño de la fuente */
+  padding: 0.5rem 1.5rem;
+  /* Aumenta el padding (más espacio dentro del botón) */
+  transition: 1s all;
+  border: none;
+  cursor: pointer;
+  gap: 0.25rem;
+  background: none;
+  border-radius: 50px; }
+
+/* Hover en los botones */
+.navigation > li:hover > button {
+  color: #006aff;
+  /* Color al pasar el mouse */
+  background: rgba(5, 88, 253, 0.1);
+  /* Fondo semitransparente */
+  box-shadow: 4px 4px 15px rgba(0, 0, 255, 0.5);
+  /* Sombra sutil */ }
+
+/*# sourceMappingURL=header.css.map */

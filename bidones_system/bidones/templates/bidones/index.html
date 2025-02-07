@@ -1,0 +1,59 @@
+{% extends "bidones/base_template.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="crud-titulo">
+        <h1>
+            Sobre nosotros 💧!
+        </h1>
+    </div>
+
+    <div class="infomacion">
+        <p>
+            Manantiales Santa Catalina - El Mejor Servicio de Agua a Domicilio
+
+            En Manantiales Santa Catalina, nos comprometemos a brindarte agua de la más alta calidad directamente a tu puerta, todos los días de la semana. Sabemos lo importante que es mantenerse hidratado, por eso ofrecemos un servicio rápido, confiable y accesible para que nunca te falte lo más vital para tu salud.
+
+            ¿Por qué elegir Manantiales Santa Catalina?
+            Entrega diaria: Nos aseguramos de que siempre tengas agua fresca a tu disposición. Desde el lunes hasta el domingo, nuestros repartidores están listos para entregarte tu pedido a la hora que más te convenga.
+            Calidad garantizada: Cada uno de nuestros bidones de agua pasa por rigurosos controles de calidad, garantizando agua pura, filtrada y libre de impurezas.
+            Servicio personalizado: Ya sea que necesites agua para tu hogar o tu oficina, tenemos diferentes tamaños de bidones y planes de entrega que se ajustan a tus necesidades.
+            Ecológicos: En Manantiales Santa Catalina nos preocupamos por el medio ambiente. Usamos bidones reutilizables y reciclamos todos nuestros envases para contribuir a la reducción de residuos.
+            Precios competitivos: Ofrecemos precios justos y accesibles, para que puedas disfrutar de agua de calidad sin preocuparte por tu bolsillo.
+            ¡Siempre en tu puerta!
+            Nuestro equipo de repartidores realiza entregas todos los días, garantizando que tengas agua disponible en cualquier momento. Solo tienes que realizar tu pedido y nosotros nos encargamos del resto.
+
+            ¡Mantente hidratado con Manantiales Santa Catalina!
+
+            Confía en nosotros para mantener tu hogar o empresa abastecida de agua pura y fresca, todos los días del año. ¡Tu bienestar es nuestra prioridad!
+        </p>
+    </div>
+
+    <section class="section-contacto">
+        <h1 class="titulo"> Nuestros contactos!:  </h1>
+        <a href="https://api.whatsapp.com/send?phone=543584249580&text=Quiero%20m%C3%A1s%20informaci%C3%B3n" target="_blank">
+            <img src="{% static 'bidones/assets/logo-wsp.png' %}" class="logo-wsp" alt="Whatsapp">
+        </a>        
+
+        <!-- Román boludo promocionando su ig: 
+        <a href="https://www.instagram.com/romanmdo/" target="_blank"> -->
+
+        <a href="https://www.instagram.com/manantiales.santacatalina/" target="_blank">
+            <img src="{% static 'bidones/assets/logo-ig.png' %}" class="logo-IG" alt="Instagram">
+        </a>
+    </section>
+
+    <div class="informacion-admin">
+        <p>
+            Esta parte es accesible solo si eres administrador de este sitio, aqui, podras acceder a los
+            paneles de "Adminitrar clientes", que te permitira crear, editar y borrar información de clientes
+            cargados en la base de datos.
+        </p>
+
+        <p>
+            El otro panel, es para llevar el recuento de clientes dia a dia, esto se cargara en una base 
+            de datos en MySQL.
+        </p>
+    </div>
+
+{% endblock %}
