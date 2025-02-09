@@ -20,7 +20,7 @@
         <!-- JS -->
         <script src="{% static 'scripts/main.js' %}" defer></script>
         <script src="{% static 'scripts/request.js' %}" defer></script>
-
+        
         <title>{% block title %}Manantiales Santa Catalina - Inicio{% endblock %}</title>
         <link rel="shortcut icon" href="{% static 'bidones/assets/logo-bidones.png' %}">
 
@@ -29,24 +29,37 @@
 
     <body>
         <main>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="path/to/bootstrap-datepicker.min.js"></script>
+
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-            
             <header class="header">
-                <h1 class="titulo"> Manantiales Santa Catalina </h1>
-                <a href="/inicio/">                
-                    <img src="{% static 'bidones/assets/logo-bidones.png' %}" class="logo">
-                </a>
-
-
-                <nav>
-                    <ul class="navigation hide">
-                        <li><a href="/clientes/" class="btn btn-primary"> Añadir clientes 🗂️ </a></li>
-                        <li><a href="#" class="btn btn-primary"> Dia a Dia 🌊 </a></li>
-                    </ul>
+                <nav class="nav-container">
+                    <div class="logo">
+                        <a href="#">
+                            <img src="{% static 'bidones/assets/logo-bidones.png' %}" alt="Logo" class="logo-image">
+                            <span class="logo-text">Manantiales Santa Catalina</span>
+                        </a>
+                    </div>
+            
+                    <div class="nav-content">
+                        <ul class="menu">
+                            <li><a href="#">Nosotros</a></li>
+                            <li><a href="#">Productos</a></li>
+                            <li><a href="#">Preguntas Frecuentes</a></li>
+                            <li><a href="#">Contacto</a></li>
+                        </ul>
+            
+                        <button class="cta-button">QUIERO SER CLIENTE</button>
+                    </div>
                 </nav>
             </header>
-
+            
+            
+            
             {% block content %}{% endblock %}
         </main>
+        <script src="{% static 'scripts/header.js' %}" defer></script>
+
     </body>
 </html>
