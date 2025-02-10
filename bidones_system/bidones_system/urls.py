@@ -22,7 +22,7 @@ from bidones import views_clientes
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/', views.inicio, name='inicio'),
-    path('crud/', views.crud, name="crud"),
-    path('clientes/', views.lista_clientes, name='lista_clientes'),
+
+    path('registro-clientes/', views.lista_clientes, name='lista_clientes'),
     path('clientes/new/', views.nuevo_cliente, name='nuevo_cliente'),
 ]

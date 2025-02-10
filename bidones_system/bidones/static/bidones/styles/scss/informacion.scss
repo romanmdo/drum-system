@@ -1,3 +1,48 @@
+.hero-section{
+    margin-top: 5%;
+}
+
+.contenedor-logo-manantiales{
+    z-index: 100;
+    width: 50%;
+}
+
+.logo-manantiales{
+    border-radius: 70%;
+    width: 50%;
+    border: 2px #000000 solid; 
+    background-color: rgb(210, 210, 210);
+    box-shadow: 8px 8px 20px rgb(0, 0, 0);  
+    transition: 1s all;
+
+    padding: 5%;
+    margin-top: 5%;
+    margin-left: 8%;
+}
+
+.logo-manantiales:hover{
+    box-shadow: 8px 8px 20px rgb(5, 88, 253);  
+    border: 2px #0F4C81 solid; 
+    transform: scale(1.1, 1.1);
+}
+
+
+@media screen and (max-width: 768px) {
+    .hero-section{
+        margin-top: 100%;
+    }
+
+    .logo-manantiales{
+        margin-left: 100%;
+    }
+
+
+}
+
+
+
+/* ---------------------------------
+
 .infomacion, .informacion-admin{
     padding: 2%;
 }
@@ -14,7 +59,6 @@
 }
 
 .infomacion p:hover, .informacion-admin p:hover{
-    border: rgb(26, 56, 178) solid 3px;
     box-shadow: 8px 8px 20px rgb(5, 88, 253);
 }
 
@@ -30,8 +74,6 @@
     background-image: url("../../assets/header-wallpaper.jpg");
     background-size: cover;
     position: relative;
-
-    
 }
 
 .logo-wsp, .logo-ig{
@@ -45,3 +87,5 @@
     transform: scale(1.2, 1.2);
     filter: invert(12%) sepia(86%) saturate(6562%) hue-rotate(200deg) brightness(70%) contrast(140%);
 }
+
+-------------------------------------- */

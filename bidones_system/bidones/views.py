@@ -8,9 +8,6 @@ from django.contrib import messages
 def inicio(request):
     return render(request, 'bidones/index.html')
 
-def crud(request):
-    return render(request, 'bidones/crud.html')
-
 def lista_clientes(request):
     clientes = Cliente.objects.all()  # Obtener todos los clientes de la base de datos
     return render(request, 'bidones/lista_clientes.html', {'clientes': clientes})

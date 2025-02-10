@@ -11,6 +11,7 @@
     min-height: 100px;
     background-size: cover;
     position: relative;
+    margin-top: 8%;
 }
 
 .container > button {
@@ -38,9 +39,8 @@
 table {
     max-width: 100%;
     border-collapse: collapse;
-    border: 2px #4d4d4e solid;
+    border: 2px #4d4e4e solid;
     transition: .5s all ease-in-out; 
-    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 table:hover{

@@ -1,39 +1,79 @@
-.infomacion, .informacion-admin {
-  padding: 2%; }
+.hero-section {
+  margin-top: 5%; }
 
-.infomacion p, .informacion-admin p {
-  padding: 5%;
-  font-weight: normal;
-  font-style: normal;
-  font-size: 1.6em;
+.contenedor-logo-manantiales {
+  z-index: 100;
+  width: 50%; }
+
+.logo-manantiales {
+  border-radius: 70%;
+  width: 50%;
+  border: 2px #000000 solid;
+  background-color: #d2d2d2;
+  box-shadow: 8px 8px 20px black;
   transition: 1s all;
-  border: 2px black solid;
-  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5); }
+  padding: 5%;
+  margin-top: 5%;
+  margin-left: 8%; }
 
-.infomacion p:hover, .informacion-admin p:hover {
-  border: #1a38b2 solid 3px;
-  box-shadow: 8px 8px 20px #0558fd; }
+.logo-manantiales:hover {
+  box-shadow: 8px 8px 20px #0558fd;
+  border: 2px #0F4C81 solid;
+  transform: scale(1.1, 1.1); }
 
-.section-contacto {
-  width: 100%;
-  padding: 2%;
-  text-align: center;
-  color: white;
-  margin: 0;
-  box-sizing: border-box;
-  min-height: 100px;
-  background-image: url("../../assets/header-wallpaper.jpg");
-  background-size: cover;
-  position: relative; }
+@media screen and (max-width: 768px) {
+  .hero-section {
+    margin-top: 100%; }
 
-.logo-wsp, .logo-ig {
-  width: 6%;
-  margin: 2%;
-  transition: 0.3s ease;
-  filter: hue-rotate(180deg) saturate(1.5) brightness(1.2); }
+  .logo-manantiales {
+    margin-left: 100%; } }
+/* ---------------------------------
 
-.logo-wsp:hover, .logo-ig:hover {
-  transform: scale(1.2, 1.2);
-  filter: invert(12%) sepia(86%) saturate(6562%) hue-rotate(200deg) brightness(70%) contrast(140%); }
+.infomacion, .informacion-admin{
+    padding: 2%;
+}
+
+.infomacion p, .informacion-admin p{
+    padding: 5%;
+    font-weight: normal; 
+    font-style: normal; 
+    font-size: 1.6em;
+
+    transition: 1s all;
+    border: 2px black solid;
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.infomacion p:hover, .informacion-admin p:hover{
+    box-shadow: 8px 8px 20px rgb(5, 88, 253);
+}
+
+.section-contacto{
+    width: 100%;
+    padding: 2%;
+    text-align: center;
+    color: white;
+    margin: 0;
+    box-sizing: border-box;
+
+    min-height: 100px;
+    background-image: url("../../assets/header-wallpaper.jpg");
+    background-size: cover;
+    position: relative;
+}
+
+.logo-wsp, .logo-ig{
+    width: 6%;
+    margin: 2%;
+    transition: 0.3s ease;
+    filter: hue-rotate(180deg) saturate(1.5) brightness(1.2);
+}
+
+.logo-wsp:hover, .logo-ig:hover{
+    transform: scale(1.2, 1.2);
+    filter: invert(12%) sepia(86%) saturate(6562%) hue-rotate(200deg) brightness(70%) contrast(140%);
+}
+
+-------------------------------------- */
 
 /*# sourceMappingURL=informacion.css.map */

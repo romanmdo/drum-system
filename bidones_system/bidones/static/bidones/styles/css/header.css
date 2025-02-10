@@ -1,3 +1,6 @@
+@font-face {
+  font-family: 'CooVeltica';
+  src: url("../../fonts/Coolvetica Rg.otf") format("truetype"); }
 :root {
   --primary: #0F4C81;
   --primary-dark: #0A3A63;
@@ -9,7 +12,8 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  font-family: Arial, sans-serif; }
 
 .header {
   background-color: var(--primary);
@@ -104,6 +108,9 @@
 
   .cta-button {
     width: 100%;
-    text-align: center; } }
+    text-align: center; }
+
+  .infomacion {
+    margin-top: 100%; } }
 
 /*# sourceMappingURL=header.css.map */
