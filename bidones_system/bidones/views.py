@@ -12,6 +12,10 @@ def lista_clientes(request):
     clientes = Cliente.objects.all()  # Obtener todos los clientes de la base de datos
     return render(request, 'bidones/lista_clientes.html', {'clientes': clientes})
 
+def lista_dia(request):
+    clientes = Cliente.objects.all()  # Obtener todos los clientes de la base de datos
+    return render(request, 'bidones/lista_dia.html', {'clientes': clientes})
+
 def nuevo_cliente(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
