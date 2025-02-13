@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.utils.timezone import now
-from .models import Cliente, Dia
-
-from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import Cliente, Dia
 
 def registrar_dia(request):
@@ -48,7 +46,10 @@ def lista_dia(request):
     return render(request, 'lista-dia.html', context)
 
 
+
 def agregar_dia(request):
+    clientes = Cliente.objects.all()  # Obtener todos los clientes para mostrar en el dropdown
+
     if request.method == "POST":
         cliente_id = request.POST.get("cliente")
         bidones_20L = request.POST.get("bidones_20L")
@@ -57,15 +58,21 @@ def agregar_dia(request):
         paga = request.POST.get("paga")
         debe = request.POST.get("debe")
 
-        print("Cliente ID:", cliente_id)
-        print("Bidones 20L:", bidones_20L)
-        print("Bidones 15L:", bidones_15L)
-        print("Precio Total:", precio_total)
-        print("Pago Realizado:", paga)
-        print("Total a Pagar:", debe)
+        # Verificar que los datos sean válidos
+        try:
+            bidones_20L = int(bidones_20L)
+            bidones_15L = int(bidones_15L)
+            precio_total = float(precio_total)
+            paga = float(paga)
+            debe = float(debe)
+        except ValueError:
+            messages.error(request, "Por favor ingrese valores válidos en los campos numéricos.")
+            return render(request, "bidones/lista_dia.html", {'clientes': clientes})
 
-        if cliente_id:
+        # Verificar si el cliente existe
+        try:
             cliente = Cliente.objects.get(id=cliente_id)
+            # Crear el nuevo registro de "Día"
             nuevo_dia = Dia.objects.create(
                 cliente=cliente,
                 bidones_20L=bidones_20L,
@@ -74,6 +81,11 @@ def agregar_dia(request):
                 paga=paga,
                 debe=debe
             )
-            print("Registro guardado:", nuevo_dia)
+            messages.success(request, 'Pedido registrado correctamente.')
+        except Cliente.DoesNotExist:
+            messages.error(request, 'El cliente no existe.')
 
-    return redirect("lista_dia")
+        return redirect("lista_dia")
+
+    return render(request, "bidones/lista_dia.html", {'clientes': clientes})
+ 

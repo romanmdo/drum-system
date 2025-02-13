@@ -16,7 +16,7 @@
                     <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                         <div class="rounded-md shadow">
                             <button type="button" class="btn btn-crud btn-primary" data-bs-toggle="modal" data-bs-target="#add__form">
-                                Añadir Cliente 🧍‍♂️
+                                Añadir Pedido 🧾
                             </button>
                         </div>
                     </div>
@@ -36,13 +36,22 @@
     </div>
 </div>
 
+<!-- Mostrar mensajes de éxito o error -->
+{% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <div class="container">
-    <!-- Modal para añadir cliente -->
+    <!-- Modal para añadir pedido -->
     <div class="modal fade animated-text" id="add__form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Añadir Cliente </h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Añadir Pedido </h1>
                 </div>
                 <div class="modal-body">
                     <form method="POST" action="{% url 'agregar_dia' %}">
@@ -76,7 +85,7 @@
                             <label for="debe" class="col-form-label"> Total a pagar: </label>
                             <input type="number" class="form-control" name="debe" step="0.01" required>
                         </div>
-                        <button type="submit" class="btn btn-success mt-3"> Registrar Día </button>
+                        <button type="submit" class="btn btn-success mt-3"> Registrar Pedido </button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -85,7 +94,9 @@
             </div>
         </div>
     </div>
+</div>
 
+<div class="container">
     <!-- Campo de búsqueda -->
     <form action="/clientes/search/" method="GET" class="mt-3 mb-4">
         <div class="input-group">
@@ -95,41 +106,65 @@
     </form>
 
     <!-- Tabla de clientes (solo mostrar clientes con pedidos) -->
-    <table class="table table-hover table-striped align-middle text-center">
-        <thead>
-            <tr class="table-dark">
-                <th scope="col"> # </th>
-                <th scope="col"> Cliente </th>
-                <th scope="col"> 20L </th>
-                <th scope="col"> 15L </th>
-                <th scope="col"> Precio </th>
-                <th scope="col"> Paga </th>
-                <th scope="col"> Debe </th>
-                <th scope="col"> Fecha </th>
-                <th scope="col"> Acciones </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for cliente in clientes %}
-                {% if cliente.bidones_20L or cliente.bidones_15L %}
+    <div class="table-responsive shadow rounded">
+        <table class="table table-hover table-striped align-middle text-center">
+            <thead class="table-dark">
                 <tr>
-                    <th scope="row">{{ cliente.id }}</th>
-                    <td>{{ cliente.nombre }}</td>
-                    <td>{{ cliente.bidones_20L }}</td>
-                    <td>{{ cliente.bidones_15L }}</td>
-                    <td>${{ cliente.precio_total }}</td>
-                    <td>${{ cliente.paga }}</td>
-                    <td>${{ cliente.debe }}</td>
-                    <td>{{ cliente.fecha }}</td>
-                    <td>
-                        <a class="btn btn-warning" href="/clientes/edit/{{ cliente.id }}">Editar</a>
-                        <a class="btn btn-danger" href="/clientes/delete/{{ cliente.id }}">Eliminar</a>
-                    </td>
+                    <th scope="col"> # </th>
+                    <th scope="col"> Cliente </th>
+                    <th scope="col"> 20L </th>
+                    <th scope="col"> 15L </th>
+                    <th scope="col"> Precio </th>
+                    <th scope="col"> Paga </th>
+                    <th scope="col"> Debe </th>
+                    <th scope="col"> Fecha </th>
+                    <th scope="col"> Acciones </th>
                 </tr>
-                {% endif %}
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for dia in dias %}
+                    <tr>
+                        <th scope="row">{{ dia.id }}</th>
+                        <td>{{ dia.cliente }}</td>
+                        <td>{{ dia.bidones_20L }}</td>
+                        <td>{{ dia.bidones_15L }}</td>
+                        <td>${{ dia.precio_total }}</td>
+                        <td>${{ dia.paga }}</td>
+                        <td>${{ dia.debe }}</td>
+                        <td>{{ dia.fecha }}</td>
+                        <td>
+                            <a class="btn btn-warning" href="/dias/edit/{{ dia.id }}">Editar</a>
+                            <a class="btn btn-danger" href="/dias/delete/{{ dia.id }}">Eliminar</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9">No hay registros de día a día</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>    
+    </div>
+
+    <!-- Paginación -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+            {% endif %}
+            <li class="page-item active">
+                <a class="page-link">{{ page_obj.number }}</a>
+            </li>
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 </div>
+
 
 {% endblock %}
