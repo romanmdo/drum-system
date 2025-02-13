@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from bidones import views
 from bidones import views_clientes
+from bidones import views_dia
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,13 @@ urlpatterns = [
 
     path('registro-clientes/', views.lista_clientes, name='lista_clientes'),
     path('registro-dia/', views.lista_dia, name='lista_dia'),
-    path('clientes/new/', views.nuevo_cliente, name='nuevo_cliente'),
     
+    path('clientes/new/', views_clientes.nuevo_cliente, name='nuevo_cliente'),
+    path('clientes/edit/<int:cliente_id>/', views_clientes.editar_cliente, name='editar_cliente'),
+    path('clientes/delete/<int:cliente_id>/', views_clientes.eliminar_cliente, name='eliminar_cliente'),
+
+    path('dia/', views_dia.registrar_dia, name='registrar_dia'),
+    path("registrar-dia/", views_dia.registrar_dia, name="registrar_dia"),
+    path('agregar-dia/', views_dia.agregar_dia, name='agregar_dia'),
+
 ]

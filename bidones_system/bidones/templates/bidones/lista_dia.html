@@ -45,39 +45,38 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel"> Añadir Cliente </h1>
                 </div>
                 <div class="modal-body">
-                    <form action="/clientes/new/" method="POST">
+                    <form method="POST" action="{% url 'agregar_dia' %}">
                         {% csrf_token %}
-                        <ul class="list-group">
-                            <div class="list-group-item">
-                                <label for="cliente" class="col-form-label"> Cliente: </label>
-                                <input type="text" class="form-control" placeholder="Nombre del cliente" name="cliente" required>
-                            </div>
-                            <div class="list-group-item">
-                                <label for="20L" class="col-form-label"> Cantidad de bidones 20L: </label>
-                                <input type="number" class="form-control" placeholder="Cantidad de bidones de 20L" name="20L" required>
-                            </div>
-                            <div class="list-group-item">
-                                <label for="15L" class="col-form-label"> Cantidad de bidones 15L: </label>
-                                <input type="number" class="form-control" placeholder="Cantidad de bidones de 15L" name="15L" required>
-                            </div>
-                            <div class="list-group-item">
-                                <label for="precio" class="col-form-label"> Precio Total: </label>
-                                <input type="number" class="form-control" placeholder="Precio total" name="precio" step="0.01" required>
-                            </div>
-                            <div class="list-group-item">
-                                <label for="paga" class="col-form-label"> Pago realizado: </label>
-                                <input type="number" class="form-control" placeholder="Pago realizado" name="paga" step="0.01" required>
-                            </div>
-                            <div class="list-group-item">
-                                <label for="debe" class="col-form-label"> Total a pagar: </label>
-                                <input type="number" class="form-control" placeholder="Saldo pendiente" name="debe" step="0.01" required>
-                            </div>
-                            <div class="list-group-item">
-                                <label for="fecha" class="col-form-label"> Fecha: </label>
-                                <input type="date" class="form-control" name="fecha" required>
-                            </div>
-                            <button type="submit" class="btn btn-success mt-3"> Añadir Cliente </button>
-                        </ul>
+                        <div class="list-group-item">
+                            <label for="cliente" class="col-form-label"> Cliente: </label>
+                            <select class="form-control" name="cliente" required>
+                                <option value="">Seleccionar Cliente</option>
+                                {% for cliente in clientes %}
+                                    <option value="{{ cliente.id }}">{{ cliente.nombre }} {{ cliente.apellido }} - DNI: {{ cliente.dni }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="list-group-item">
+                            <label for="bidones_20L" class="col-form-label"> Cantidad de bidones 20L: </label>
+                            <input type="number" class="form-control" name="bidones_20L" required>
+                        </div>
+                        <div class="list-group-item">
+                            <label for="bidones_15L" class="col-form-label"> Cantidad de bidones 15L: </label>
+                            <input type="number" class="form-control" name="bidones_15L" required>
+                        </div>
+                        <div class="list-group-item">
+                            <label for="precio_total" class="col-form-label"> Precio Total: </label>
+                            <input type="number" class="form-control" name="precio_total" step="0.01" required>
+                        </div>
+                        <div class="list-group-item">
+                            <label for="paga" class="col-form-label"> Pago realizado: </label>
+                            <input type="number" class="form-control" name="paga" step="0.01" required>
+                        </div>
+                        <div class="list-group-item">
+                            <label for="debe" class="col-form-label"> Total a pagar: </label>
+                            <input type="number" class="form-control" name="debe" step="0.01" required>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3"> Registrar Día </button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -95,7 +94,7 @@
         </div>
     </form>
 
-    <!-- Tabla de clientes -->
+    <!-- Tabla de clientes (solo mostrar clientes con pedidos) -->
     <table class="table table-hover table-striped align-middle text-center">
         <thead>
             <tr class="table-dark">
@@ -112,20 +111,22 @@
         </thead>
         <tbody>
             {% for cliente in clientes %}
-            <tr>
-                <th scope="row">{{ cliente.id }}</th>
-                <td>{{ cliente.nombre }}</td>
-                <td>{{ cliente.bidones_20L }}</td>
-                <td>{{ cliente.bidones_15L }}</td>
-                <td>${{ cliente.precio_total }}</td>
-                <td>${{ cliente.paga }}</td>
-                <td>${{ cliente.debe }}</td>
-                <td>{{ cliente.fecha }}</td>
-                <td>
-                    <a class="btn btn-warning" href="/clientes/edit/{{ cliente.id }}">Editar</a>
-                    <a class="btn btn-danger" href="/clientes/delete/{{ cliente.id }}">Eliminar</a>
-                </td>
-            </tr>
+                {% if cliente.bidones_20L or cliente.bidones_15L %}
+                <tr>
+                    <th scope="row">{{ cliente.id }}</th>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.bidones_20L }}</td>
+                    <td>{{ cliente.bidones_15L }}</td>
+                    <td>${{ cliente.precio_total }}</td>
+                    <td>${{ cliente.paga }}</td>
+                    <td>${{ cliente.debe }}</td>
+                    <td>{{ cliente.fecha }}</td>
+                    <td>
+                        <a class="btn btn-warning" href="/clientes/edit/{{ cliente.id }}">Editar</a>
+                        <a class="btn btn-danger" href="/clientes/delete/{{ cliente.id }}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endif %}
             {% endfor %}
         </tbody>
     </table>

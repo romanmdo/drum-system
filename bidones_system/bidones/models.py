@@ -13,9 +13,12 @@ class Cliente(models.Model):
 class Dia(models.Model):
     id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    bidon_15l = models.IntegerField(unique=True)
-    bidon_20l = models.IntegerField(unique=True)
-    precio = models.IntegerField(unique=True)
-    paga = models.IntegerField(unique=True)
-    debe = models.IntegerField(unique=True)
-    fecha = models.DateField(verbose_name='Fecha')
+    bidones_20L = models.IntegerField(default=0)
+    bidones_15L = models.IntegerField(default=0)
+    precio_total = models.DecimalField(max_digits=10, decimal_places=2)
+    paga = models.DecimalField(max_digits=10, decimal_places=2)
+    debe = models.DecimalField(max_digits=10, decimal_places=2)
+    fecha = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Registro de {self.cliente.nombre} {self.cliente.apellido} - {self.fecha}"

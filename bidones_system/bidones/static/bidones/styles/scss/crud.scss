@@ -36,21 +36,8 @@
     overflow-x: auto;
 }
 
-table {
-    max-width: 100%;
-    border-collapse: collapse;
-    border: 2px #4d4e4e solid;
-    transition: .5s all ease-in-out; 
-}
-
 table:hover{
     box-shadow: 4px 4px 15px rgba(0, 0, 255, 0.5); /* Sombra sutil */
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
 }
 
 @media screen and (max-width: 768px) {

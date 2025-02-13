@@ -6,6 +6,7 @@ def lista_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'bidones/lista_clientes.html', {'clientes': clientes})
 
+
 def nuevo_cliente(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
@@ -27,25 +28,36 @@ def nuevo_cliente(request):
     return render(request, 'bidones/nuevo_cliente.html')
 
 
-def editar_cliente(request, DNI):
-    clientes = Cliente.objects.filter(dni_id = DNI)
-    clientes_editar = Cliente.objects.get(dni=int(request.get['DNI']))
-    return render(request, 'bidones/lista_clientes.html', {
-        'mensaje': '',
-        'clientes': clientes,
-        'clientes_edit': clientes_editar,
-    })
+def editar_cliente(request, cliente_id):
+    # Obtener el cliente o devolver un 404 si no existe
+    cliente = get_object_or_404(Cliente, id=cliente_id)
 
-def guardar_editado(request):
-    DNI = request.POST['DNI']
-    nombre = request.POST['nombre']
-    apellido = request.POST['apellido']
-    telefono = request.POST['telefono']
+    if request.method == 'POST':
+        # Obtener los datos enviados desde el formulario
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        dni = request.POST.get('dni')
+        telefono = request.POST.get('telefono')
 
-    Cliente.objects.filter(dni=DNI).update(nombre=nombre, apellido=apellido, dni=DNI, telefono=telefono)
-    clientes = Cliente.objects.filter(dni_id = DNI)
+        # Validar si el DNI ya pertenece a otro cliente
+        if Cliente.objects.filter(dni=dni).exclude(id=cliente_id).exists():
+            messages.error(request, "El DNI ingresado ya pertenece a otro cliente.")
+        else:
+            # Actualizar los datos del cliente
+            cliente.nombre = nombre
+            cliente.apellido = apellido
+            cliente.dni = dni
+            cliente.telefono = telefono
+            cliente.save()  # Guardar los cambios en la base de datos
 
-    return render(request, 'bidones/lista_clientes', {
-        'mensaje': 'Se editó correctamente',
-        'clientes': clientes,
-    })
+            messages.success(request, "Cliente actualizado exitosamente.")
+            return redirect('lista_clientes')
+
+    # Renderizar el formulario con los datos del cliente existente
+    return render(request, 'bidones/editar_cliente.html', {'cliente': cliente})
+
+def eliminar_cliente(request, cliente_id):
+    cliente = get_object_or_404(Cliente, id=cliente_id)  # Buscar el cliente o devolver 404
+    cliente.delete()  # Eliminar cliente
+    messages.success(request, "Cliente eliminado correctamente.")
+    return redirect('lista_clientes')  # Cambia 'lista_clientes' por la URL correcta

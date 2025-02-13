@@ -15,7 +15,7 @@
                     </p>
                     <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                         <button type="button" class="btn btn-primary btn-lg shadow-lg" data-bs-toggle="modal" data-bs-target="#add__form">
-                            Añadir Cliente 🧍‍♂️
+                            Añadir Cliente 🧑‍♂️
                         </button>
                     </div>
                 </div>
@@ -35,7 +35,16 @@
 </div>
 
 <div class="container my-5">
-    <!-- Modal para añadir cliente -->
+    <!-- Mensajes -->
+    {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Modal para añadir o editar cliente -->
     <div class="modal fade" id="add__form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -44,7 +53,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/clientes/new/" method="POST">
+                    <form action="{% url 'nuevo_cliente' %}" method="POST">
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
@@ -83,7 +92,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for cliente in clientes %}
+                {% for cliente in page_obj %}
                 <tr>
                     <th scope="row">{{ cliente.id }}</th>
                     <td>{{ cliente.nombre }}</td>
@@ -92,8 +101,8 @@
                     <td>{{ cliente.telefono }}</td>
                     <td>
                         <div class="d-flex justify-content-center gap-2">
-                            <a class="btn btn-warning btn-sm shadow" href="/clientes/editar/{{ cliente.dni }}">Editar 🟡</a>
-                            <a class="btn btn-danger btn-sm shadow" href="/clientes/eliminar/{{ cliente.dni }}">Eliminar 🔴</a>
+                            <a class="btn btn-warning btn-sm shadow" href="{% url 'editar_cliente' cliente.id %}" aria-label="Editar cliente"> <i class="fas fa-edit"></i> Editar </a>
+                            <a class="btn btn-danger" href="/clientes/delete/{{ cliente.id }}">Eliminar</a>
                         </div>
                     </td>
                 </tr>
@@ -101,6 +110,25 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Paginación -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+            {% endif %}
+            <li class="page-item active">
+                <a class="page-link">{{ page_obj.number }}</a>
+            </li>
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 </div>
 
 {% endblock %}
