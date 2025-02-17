@@ -30,4 +30,7 @@ urlpatterns = [
     # Gestión de días
     path('lista-dia/', views.lista_dia, name='lista_dia'),
     path('agregar-dia/', views_dia.agregar_dia, name='agregar_dia'),
+
+    # ________ AJAX ________ #
+    path('obtener_clientes/', views_dia.obtener_clientes, name='obtener_clientes'),
 ]

@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.utils.timezone import now
 from django.contrib import messages
+from django.http import JsonResponse
 from .models import Cliente, Dia
 
 def registrar_dia(request):
     if request.method == "POST":
         cliente_id = request.POST["cliente"]
         bidones_20L = int(request.POST["bidones_20L"])
-        bidones_12L = int(request.POST["bidones_12L"])
+        bidones_15L = int(request.POST["bidones_15L"])
         precio_total = float(request.POST["precio_total"])
         paga = float(request.POST["paga"])
         debe = float(request.POST["debe"])
@@ -19,7 +20,7 @@ def registrar_dia(request):
         Dia.objects.create(
             cliente=cliente,
             bidones_20L=bidones_20L,
-            bidones_12L=bidones_12L,
+            bidones_15L=bidones_15L,
             precio_total=precio_total,
             paga=paga,
             debe=debe,
@@ -35,12 +36,15 @@ def registrar_dia(request):
 
 def lista_dia(request):
     clientes = Cliente.objects.all()  # Obtiene todos los clientes
+    
     paginator = Paginator(clientes, 10)  # Paginamos a 10 clientes por página
-
     page_number = request.GET.get('page')  # Obtiene el número de página de la URL
     page_obj = paginator.get_page(page_number)  # Obtiene la página actual
 
-    return render(request, 'lista_dia.html', {'page_obj': page_obj})
+    return render(request, 'bidones/lista_dia.html', {
+        'clientes' : clientes,
+        'page_obj' : page_obj,
+        })
 
 
 
@@ -51,7 +55,7 @@ def agregar_dia(request):
     if request.method == "POST":
         cliente_id = request.POST.get("cliente")
         bidones_20L = request.POST.get("bidones_20L")
-        bidones_12L = request.POST.get("bidones_12L")
+        bidones_15L = request.POST.get("bidones_15L")
         precio_total = request.POST.get("precio_total")
         paga = request.POST.get("paga")
         debe = request.POST.get("debe")
@@ -60,7 +64,8 @@ def agregar_dia(request):
         # Verificar que los datos sean válidos
         try:
             bidones_20L = int(bidones_20L)
-            bidones_12L = int(bidones_12L)
+            print("BIDONES DE 12 LITROS recibido:", request.POST.get("bidones_15L"))
+            bidones_15L = int(bidones_15L)
             precio_total = float(precio_total)
             paga = float(paga)
             debe = float(debe)
@@ -76,7 +81,7 @@ def agregar_dia(request):
             nuevo_dia = Dia.objects.create(
                 cliente=cliente,
                 bidones_20L=bidones_20L,
-                bidones_12L=bidones_12L,
+                bidones_15L=bidones_15L,
                 precio_total=precio_total,
                 paga=paga,
                 debe=debe,
@@ -89,3 +94,9 @@ def agregar_dia(request):
         return redirect("lista_dia")
 
     return render(request, "bidones/lista_dia.html", {'clientes': clientes})
+
+# __________ PRUEBAS DE AJAX __________ #
+
+def obtener_clientes(request):
+    clientes = Cliente.objects.all().values('id', 'nombre')  # Devuelve solo los datos necesarios
+    return JsonResponse(list(clientes), safe=False)  # Convierte QuerySet en lista JSON
