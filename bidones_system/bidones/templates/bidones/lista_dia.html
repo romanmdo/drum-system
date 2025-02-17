@@ -60,9 +60,13 @@
                             <label for="cliente" class="col-form-label"> Cliente: </label>
                             <select class="form-control" name="cliente" required>
                                 <option value="">Seleccionar Cliente</option>
-                                {% for cliente in clientes %}
-                                    <option value="{{ cliente.id }}">{{ cliente.nombre }} {{ cliente.apellido }} - DNI: {{ cliente.dni }}</option>
-                                {% endfor %}
+                                {% if clientes %}
+                                    {% for cliente in page_obj.object_list  %}
+                                        <option value="{{ cliente.id }}">{{ cliente.nombre }} {{ cliente.apellido }} - DNI: {{ cliente.dni }}</option>
+                                    {% endfor %}
+                                {% else %}
+                                    <option value="">No hay clientes disponibles</option>
+                                {% endif %}
                             </select>
                         </div>
                         <div class="list-group-item">
@@ -70,7 +74,7 @@
                             <input type="number" class="form-control" name="bidones_20L" required>
                         </div>
                         <div class="list-group-item">
-                            <label for="bidones_15L" class="col-form-label"> Cantidad de bidones 15L: </label>
+                            <label for="bidones_15L" class="col-form-label"> Cantidad de bidones 12L: </label>
                             <input type="number" class="form-control" name="bidones_15L" required>
                         </div>
                         <div class="list-group-item">
@@ -84,6 +88,10 @@
                         <div class="list-group-item">
                             <label for="debe" class="col-form-label"> Total a pagar: </label>
                             <input type="number" class="form-control" name="debe" step="0.01" required>
+                        </div>
+                        <div class="list-group-item">
+                            <label for="alquila" class="col-form-label"> Total de dispensers alquilados: </label>
+                            <input type="number" class="form-control" name="alquila" step="0.01" required>
                         </div>
                         <button type="submit" class="btn btn-success mt-3"> Registrar Pedido </button>
                     </form>
@@ -113,10 +121,11 @@
                     <th scope="col"> # </th>
                     <th scope="col"> Cliente </th>
                     <th scope="col"> 20L </th>
-                    <th scope="col"> 15L </th>
+                    <th scope="col"> 12L </th>
                     <th scope="col"> Precio </th>
                     <th scope="col"> Paga </th>
                     <th scope="col"> Debe </th>
+                    <th scope="col"> Alquila </th>
                     <th scope="col"> Fecha </th>
                     <th scope="col"> Acciones </th>
                 </tr>
@@ -127,10 +136,11 @@
                         <th scope="row">{{ dia.id }}</th>
                         <td>{{ dia.cliente }}</td>
                         <td>{{ dia.bidones_20L }}</td>
-                        <td>{{ dia.bidones_15L }}</td>
+                        <td>{{ dia.bidones_12L }}</td>
                         <td>${{ dia.precio_total }}</td>
                         <td>${{ dia.paga }}</td>
                         <td>${{ dia.debe }}</td>
+                        <td>${{ dia.alquila }}</td>
                         <td>{{ dia.fecha }}</td>
                         <td>
                             <a class="btn btn-warning" href="/dias/edit/{{ dia.id }}">Editar</a>
@@ -165,6 +175,5 @@
         </ul>
     </nav>
 </div>
-
 
 {% endblock %}

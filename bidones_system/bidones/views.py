@@ -1,22 +1,59 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Cliente, Dia
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required, user_passes_test
 
-# Create your views here.
+from .models import Cliente, Dia 
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/inicio/')
+        else:
+            messages.error(request, 'Usuario o contraseña incorrectos')
+
+    return render(request, 'bidones/login.html')
 
 def inicio(request):
     return render(request, 'bidones/index.html')
 
 def lista_clientes(request):
     clientes = Cliente.objects.all()
-    paginator = Paginator(clientes, 10)  # 10 clientes por página
+    paginator = Paginator(clientes, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
 
+# @login_required
 def lista_dia(request):
-    dias = Dia.objects.all()  # Obtiene todos los pedidos
-    clientes = Cliente.objects.all()  # Obtiene todos los clientes
+    dias = Dia.objects.all()  
+    clientes = Cliente.objects.all() 
     return render(request, 'bidones/lista_dia.html', {'dias': dias, 'clientes': clientes})
+
+
+def superuser_required(user):
+    """Verifica si el usuario es superusuario."""
+    return user.is_superuser
+
+
+@login_required(login_url='/login/')
+@user_passes_test(superuser_required, login_url='/')
+def registro_clientes(request):
+    clientes_list = Cliente.objects.all()
+    paginator = Paginator(clientes_list, 5)  # 5 clientes por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
+
+@login_required(login_url='/login/')
+@user_passes_test(superuser_required, login_url='/')
+def registro_dia(request):
+    return render(request, 'bidones/lista_dia.html')

@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cliente
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 def lista_clientes(request):
     clientes = Cliente.objects.all()
-    return render(request, 'bidones/lista_clientes.html', {'clientes': clientes})
+    paginator = Paginator(clientes, 5)  # 10 clientes por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
 
 
 def nuevo_cliente(request):
@@ -13,6 +18,7 @@ def nuevo_cliente(request):
         apellido = request.POST.get('apellido')
         dni = request.POST.get('dni')
         telefono = request.POST.get('telefono')
+        direccion = request.POST.get('direccion')
 
         if Cliente.objects.filter(dni=dni).exists():
             messages.error(request, "El cliente ya está registrado.")
@@ -22,6 +28,7 @@ def nuevo_cliente(request):
                 apellido=apellido,
                 dni=dni,
                 telefono=telefono,
+                direccion=direccion
             )
             messages.success(request, "Cliente añadido exitosamente.")
         return redirect('lista_clientes')
@@ -29,31 +36,28 @@ def nuevo_cliente(request):
 
 
 def editar_cliente(request, cliente_id):
-    # Obtener el cliente o devolver un 404 si no existe
     cliente = get_object_or_404(Cliente, id=cliente_id)
 
     if request.method == 'POST':
-        # Obtener los datos enviados desde el formulario
         nombre = request.POST.get('nombre')
         apellido = request.POST.get('apellido')
         dni = request.POST.get('dni')
         telefono = request.POST.get('telefono')
+        direccion = request.POST.get('direccion')
 
-        # Validar si el DNI ya pertenece a otro cliente
         if Cliente.objects.filter(dni=dni).exclude(id=cliente_id).exists():
             messages.error(request, "El DNI ingresado ya pertenece a otro cliente.")
         else:
-            # Actualizar los datos del cliente
             cliente.nombre = nombre
             cliente.apellido = apellido
             cliente.dni = dni
             cliente.telefono = telefono
-            cliente.save()  # Guardar los cambios en la base de datos
+            cliente.direccion = direccion
+            cliente.save() 
 
             messages.success(request, "Cliente actualizado exitosamente.")
             return redirect('lista_clientes')
 
-    # Renderizar el formulario con los datos del cliente existente
     return render(request, 'bidones/editar_cliente.html', {'cliente': cliente})
 
 def eliminar_cliente(request, cliente_id):

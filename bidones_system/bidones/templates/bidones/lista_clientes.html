@@ -25,11 +25,10 @@
 
     <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 contenedor-logo-manantiales z-index">
         <div class="w-full h-full flex justify-center items-center">
-        <img 
-            class="h-56 w-56 sm:h-72 sm:w-72 md:h-96 md:w-96 lg:h-[80%] lg:w-[80%] object-contain rounded-full logo-manantiales" 
-            src="{% static 'bidones/assets/logo-bidones.png' %}" 
-            alt="Logo Manantiales"
-        >
+            <img 
+                class="h-56 w-56 sm:h-72 sm:w-72 md:h-96 md:w-96 lg:h-[80%] lg:w-[80%] object-contain rounded-full logo-manantiales" 
+                src="{% static 'bidones/assets/logo-bidones.png' %}" 
+                alt="Logo Manantiales">
         </div>
     </div>
 </div>
@@ -71,6 +70,10 @@
                             <label for="telefono" class="form-label">Teléfono</label>
                             <input type="text" class="form-control" id="telefono" name="telefono">
                         </div>
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion">
+                        </div>
                         <button type="submit" class="btn btn-success w-100">Guardar</button>
                     </form>
                 </div>
@@ -88,24 +91,32 @@
                     <th>Apellido</th>
                     <th>DNI</th>
                     <th>Teléfono</th>
+                    <th>Dirección</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% for cliente in page_obj %}
-                <tr>
-                    <th scope="row">{{ cliente.id }}</th>
-                    <td>{{ cliente.nombre }}</td>
-                    <td>{{ cliente.apellido }}</td>
-                    <td>{{ cliente.dni }}</td>
-                    <td>{{ cliente.telefono }}</td>
-                    <td>
-                        <div class="d-flex justify-content-center gap-2">
-                            <a class="btn btn-warning btn-sm shadow" href="{% url 'editar_cliente' cliente.id %}" aria-label="Editar cliente"> <i class="fas fa-edit"></i> Editar </a>
-                            <a class="btn btn-danger" href="/clientes/delete/{{ cliente.id }}">Eliminar</a>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <th scope="row">{{ cliente.id }}</th>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.apellido }}</td>
+                        <td>{{ cliente.dni }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>{{ cliente.direccion }}</td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a class="btn btn-warning btn-sm shadow" href="{% url 'editar_cliente' cliente.id %}" aria-label="Editar cliente">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6">No hay clientes registrados</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
