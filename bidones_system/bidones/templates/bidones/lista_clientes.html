@@ -74,6 +74,10 @@
                             <label for="direccion" class="form-label">Dirección</label>
                             <input type="text" class="form-control" id="direccion" name="direccion">
                         </div>
+                        <div class="mb-3">
+                            <label for="grupo" class="form-label">Grupo</label>
+                            <input type="text" class="form-control" id="grupo" name="grupo">
+                        </div>
                         <button type="submit" class="btn btn-success w-100">Guardar</button>
                     </form>
                 </div>
@@ -92,6 +96,7 @@
                     <th>DNI</th>
                     <th>Teléfono</th>
                     <th>Dirección</th>
+                    <th>Pertenece al grupo:</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -104,6 +109,7 @@
                         <td>{{ cliente.dni }}</td>
                         <td>{{ cliente.telefono }}</td>
                         <td>{{ cliente.direccion }}</td>
+                        <td>{{ cliente.grupo }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
                                 <a class="btn btn-warning btn-sm shadow" href="{% url 'editar_cliente' cliente.id %}" aria-label="Editar cliente">

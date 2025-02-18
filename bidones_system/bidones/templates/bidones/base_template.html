@@ -23,6 +23,31 @@
             }
         </script>
 
+        <style>
+            /* Add custom styles for dropdown */
+            .dropdown:hover .dropdown-menu {
+                display: block;
+            }
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                background-color: #0077be;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+            .dropdown-menu a {
+                color: rgb(4, 0, 0);
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                transition: .5s all;
+            }
+            .dropdown-menu a:hover {
+                background-color: #0554ff6f;
+            }
+        </style>
+
         <!-- Custom CSS -->
         <link rel="stylesheet" href="{% static 'bidones/styles/css/header.css' %}">
         <link rel="stylesheet" href="{% static 'bidones/styles/css/informacion.css' %}">
@@ -48,7 +73,19 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="/inicio/" class="hover:text-secondary transition duration-300">Inicio</a>
                     <a href="/registro-clientes/" class="hover:text-secondary transition duration-300">CRUD</a>
-                    <a href="/lista-dia/" class="hover:text-secondary transition duration-300">Día a día</a>
+                    <div class="dropdown relative inline-block">
+                        <button class="hover:text-secondary transition duration-300">Día a día</button>
+                        <div class="dropdown-menu">
+                            <a href="{% url 'lista_dia' grupo=1 %}">Grupo 1</a>
+                            <a href="{% url 'lista_dia' grupo=2 %}">Grupo 2</a>
+                            <a href="{% url 'lista_dia' grupo=3 %}">Grupo 3</a>
+                            <a href="{% url 'lista_dia' grupo=4 %}">Grupo 4</a>
+                            <a href="{% url 'lista_dia' grupo=5 %}">Grupo 5</a>
+                            <a href="{% url 'lista_dia' grupo=6 %}">Grupo 6</a>
+                            <a href="{% url 'lista_dia' grupo=7 %}">Grupo 7</a>
+                            <a href="{% url 'lista_dia' grupo=8 %}">Grupo 8</a>
+                        </div>
+                    </div>
                     <button class="bg-secondary hover:bg-secondary-dark text-white font-bold py-2 px-4 rounded transition duration-300">
                         QUIERO SER CLIENTE
                     </button>
@@ -65,7 +102,17 @@
                 <a href="/inicio/" class="block py-2 px-4 text-sm hover:bg-secondary">Inicio</a>
                 {% if request.user.is_authenticated and request.user.is_superuser %}
                 <a href="/registro-clientes/" class="block py-2 px-4 text-sm hover:bg-secondary">CRUD</a>
-                <a href="/lista-dia/" class="block py-2 px-4 text-sm hover:bg-secondary">Día a día</a>
+                <button id="mobile-dropdown-button" class="w-full text-left py-2 px-4 text-sm hover:bg-secondary">Día a día</button>
+                <div id="mobile-dropdown-menu" class="hidden pl-4">
+                    <a href="/lista-dia/1/" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 1</a>
+                    <a href="/lista-dia/2/" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 2</a>
+                    <a href="/lista-dia/3/" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 3</a>
+                    <a href="/lista-dia/4/" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 4</a>
+                    <a href="/lista-dia/5/" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 5</a>
+                    <a href="/lista-dia/6/" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 6</a>
+                    <a href="/lista-dia/7/" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 7</a>
+                    <a href="/lista-dia/8/" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 8</a>
+                </div>
                 {% endif %}
                 <button class="block w-full text-left py-2 px-4 text-sm bg-secondary hover:bg-secondary-dark">
                     QUIERO SER CLIENTE
@@ -146,12 +193,24 @@
                 document.getElementById('mobile-menu').classList.toggle('hidden');
             });
 
+            // Mobile dropdown toggle
+            document.getElementById('mobile-dropdown-button').addEventListener('click', function() {
+                document.getElementById('mobile-dropdown-menu').classList.toggle('hidden');
+            });
+
             // Close mobile menu when clicking outside
             document.addEventListener('click', function(event) {
                 const mobileMenu = document.getElementById('mobile-menu');
                 const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileDropdownMenu = document.getElementById('mobile-dropdown-menu');
+                const mobileDropdownButton = document.getElementById('mobile-dropdown-button');
+                
                 if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
                     mobileMenu.classList.add('hidden');
+                }
+                
+                if (!mobileDropdownMenu.contains(event.target) && !mobileDropdownButton.contains(event.target)) {
+                    mobileDropdownMenu.classList.add('hidden');
                 }
             });
         </script>

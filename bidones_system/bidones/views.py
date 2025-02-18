@@ -31,16 +31,34 @@ def lista_clientes(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
 
-# @login_required
-def lista_dia(request):
-    dias = Dia.objects.all()  
-    clientes = Cliente.objects.all() 
-    return render(request, 'bidones/lista_dia.html', {'dias': dias, 'clientes': clientes})
 
 
 def superuser_required(user):
     """Verifica si el usuario es superusuario."""
     return user.is_superuser
+
+
+@login_required(login_url='/login/')
+@user_passes_test(superuser_required, login_url='/')
+def lista_dia(request, grupo):
+    # Filtrar los clientes por grupo
+    clientes = Cliente.objects.filter(grupo=grupo)
+    
+    # Filtrar los registros de días por grupo
+    dias = Dia.objects.filter(cliente__grupo=grupo).order_by('id')
+    
+    # Paginación de los registros de días
+    paginator = Paginator(dias, 10)  # Paginamos a 10 registros de "Día" por página
+    page_number = request.GET.get('page')  # Obtiene el número de página de la URL
+    page_obj = paginator.get_page(page_number)  # Obtiene la página actual
+    
+    return render(request, 'bidones/lista_dia.html', {
+        'clientes': clientes,
+        'dias': page_obj,  # Paginamos los días
+        'grupo': grupo,
+    })
+
+
 
 
 @login_required(login_url='/login/')

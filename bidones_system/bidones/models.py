@@ -7,6 +7,7 @@ class Cliente(models.Model):
     dni = models.IntegerField(unique=True)
     telefono = models.CharField(max_length=15, null=True, blank=True)
     direccion = models.CharField(max_length=100)
+    grupo = models.IntegerField()
 
     class Meta:
         db_table = "bidones_cliente"

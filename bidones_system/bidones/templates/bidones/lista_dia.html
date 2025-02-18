@@ -141,7 +141,7 @@
                         <td>${{ dia.precio_total }}</td>
                         <td>${{ dia.paga }}</td>
                         <td>${{ dia.debe }}</td>
-                        <td>${{ dia.alquila }}</td>
+                        <td>{{ dia.alquila }} dispensers </td>
                         <td>{{ dia.fecha }}</td>
                         <td>
                             <a class="btn btn-warning" href="/dias/edit/{{ dia.id }}">Editar</a>
@@ -157,7 +157,7 @@
         </table>    
     </div>
 
-    <!-- Paginación -->
+    <!-- Paginación --> 
     <nav>
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}

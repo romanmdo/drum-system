@@ -19,6 +19,7 @@ def nuevo_cliente(request):
         dni = request.POST.get('dni')
         telefono = request.POST.get('telefono')
         direccion = request.POST.get('direccion')
+        grupo = request.POST.get('grupo')
 
         if Cliente.objects.filter(dni=dni).exists():
             messages.error(request, "El cliente ya está registrado.")
@@ -28,7 +29,8 @@ def nuevo_cliente(request):
                 apellido=apellido,
                 dni=dni,
                 telefono=telefono,
-                direccion=direccion
+                direccion=direccion,
+                grupo=grupo
             )
             messages.success(request, "Cliente añadido exitosamente.")
         return redirect('lista_clientes')
@@ -44,6 +46,7 @@ def editar_cliente(request, cliente_id):
         dni = request.POST.get('dni')
         telefono = request.POST.get('telefono')
         direccion = request.POST.get('direccion')
+        grupo = request.POST.get('grupo')
 
         if Cliente.objects.filter(dni=dni).exclude(id=cliente_id).exists():
             messages.error(request, "El DNI ingresado ya pertenece a otro cliente.")
@@ -53,6 +56,7 @@ def editar_cliente(request, cliente_id):
             cliente.dni = dni
             cliente.telefono = telefono
             cliente.direccion = direccion
+            cliente.grupo = grupo
             cliente.save() 
 
             messages.success(request, "Cliente actualizado exitosamente.")

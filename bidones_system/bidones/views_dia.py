@@ -27,30 +27,14 @@ def registrar_dia(request):
             alquila=alquila
         )
 
-        return redirect("lista_dia") # PRESTAR ATENCION, CAMBIAR ESA VISTA
+        return redirect("lista_dia", grupo=cliente.grupo) # PRESTAR ATENCION, CAMBIAR ESA VISTA
 
-    clientes = Cliente.objects.all()
+    clientes = Cliente.objects.all().order_by('id')  # O cualquier campo por el que quieras ordenar
     return render(request, "bidones/index.html", {"clientes": clientes})
 
 
-
-def lista_dia(request):
-    clientes = Cliente.objects.all()  # Obtiene todos los clientes
-    
-    paginator = Paginator(clientes, 10)  # Paginamos a 10 clientes por página
-    page_number = request.GET.get('page')  # Obtiene el número de página de la URL
-    page_obj = paginator.get_page(page_number)  # Obtiene la página actual
-
-    return render(request, 'bidones/lista_dia.html', {
-        'clientes' : clientes,
-        'page_obj' : page_obj,
-        })
-
-
-
-
 def agregar_dia(request):
-    clientes = Cliente.objects.all()  # Obtener todos los clientes para mostrar en el dropdown
+    clientes = Cliente.objects.all().order_by('id')
 
     if request.method == "POST":
         cliente_id = request.POST.get("cliente")
@@ -64,7 +48,6 @@ def agregar_dia(request):
         # Verificar que los datos sean válidos
         try:
             bidones_20L = int(bidones_20L)
-            print("BIDONES DE 12 LITROS recibido:", request.POST.get("bidones_15L"))
             bidones_15L = int(bidones_15L)
             precio_total = float(precio_total)
             paga = float(paga)
@@ -90,13 +73,31 @@ def agregar_dia(request):
             messages.success(request, 'Pedido registrado correctamente.')
         except Cliente.DoesNotExist:
             messages.error(request, 'El cliente no existe.')
+            return render(request, "bidones/lista_dia.html", {'clientes': clientes})
 
-        return redirect("lista_dia")
+        # Imprimir el grupo antes de la redirección
+        print(f"Redirigiendo a grupo: {cliente.grupo}")
+        return redirect("lista_dia", grupo=cliente.grupo)
 
     return render(request, "bidones/lista_dia.html", {'clientes': clientes})
 
-# __________ PRUEBAS DE AJAX __________ #
 
-def obtener_clientes(request):
-    clientes = Cliente.objects.all().values('id', 'nombre')  # Devuelve solo los datos necesarios
-    return JsonResponse(list(clientes), safe=False)  # Convierte QuerySet en lista JSON
+def lista_dia(request, grupo):
+    # Filtrar los clientes por grupo
+    clientes = Cliente.objects.filter(grupo=grupo)
+    
+    # Filtrar los registros de días por grupo
+    dias = Dia.objects.filter(cliente__grupo=grupo).order_by('id')
+    
+    # Paginación de los registros de días
+    paginator = Paginator(dias, 10)  # Paginamos a 10 registros de "Día" por página
+    page_number = request.GET.get('page')  # Obtiene el número de página de la URL
+    page_obj = paginator.get_page(page_number)  # Obtiene la página actual
+    
+    return render(request, 'bidones/lista_dia.html', {
+        'clientes': clientes,
+        'dias': page_obj,  # Paginamos los días
+        'grupo': grupo,
+    })
+
+
