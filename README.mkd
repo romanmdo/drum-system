@@ -1,7 +1,7 @@
 # Manantiales Santa Catalina - Sistema de Gestión de Clientes y Pedidos
 
 ## 📌 Descripción
-Este proyecto es un **sistema de gestión de clientes y pedidos** diseñado para la empresa **Román Maldonado**, optimizando el registro y seguimiento de entregas de bidones de agua. Se desarrolló con **Django** y **MySQL**, integrando una interfaz moderna para facilitar su uso. Además, se implementaron herramientas de **automatización con IA** para mejorar la eficiencia en tareas repetitivas y minimizar errores humanos.
+Este proyecto es un **sistema de gestión de clientes y pedidos** diseñado para la empresa **Manantiales Santa Catalina**, optimizando el registro y seguimiento de entregas de bidones de agua. Se desarrolló con **Django** y **MySQL**, integrando una interfaz moderna para facilitar su uso. Además, se implementaron herramientas de **automatización con IA** para mejorar la eficiencia en tareas repetitivas y minimizar errores humanos.
 
 ---
 
@@ -20,7 +20,6 @@ Este proyecto es un **sistema de gestión de clientes y pedidos** diseñado para
 - **Base de Datos:** MySQL
 - **Frontend:** Bootstrap, HTML, CSS, JavaScript
 - **Automatización:** IA aplicada en optimización de registros y cálculos
-- **Despliegue:** Hosting en DonWeb
 
 ---
 
