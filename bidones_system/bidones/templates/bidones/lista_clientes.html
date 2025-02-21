@@ -52,7 +52,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'nuevo_cliente' %}" method="POST">
+                    <form action="{% url 'nuevo_cliente' grupo=grupo %}" method="POST">
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>

@@ -60,16 +60,20 @@ def lista_dia(request, grupo):
     })
 
 
-
 @login_required(login_url='/login/')
 @user_passes_test(superuser_required, login_url='/')
-def registro_clientes(request):
-    clientes_list = Cliente.objects.all()
+def registro_clientes(request, grupo):
+    # Filtrar los clientes por el grupo correspondiente
+    clientes_list = Cliente.objects.filter(grupo=grupo).order_by('nombre')
     paginator = Paginator(clientes_list, 5)  # 5 clientes por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
+    return render(request, 'bidones/lista_clientes.html', {
+        'page_obj': page_obj,
+        'grupo': grupo  # Usamos 'grupo' en lugar de 'grupo_id'
+    })
+
 
 @login_required(login_url='/login/')
 @user_passes_test(superuser_required, login_url='/')

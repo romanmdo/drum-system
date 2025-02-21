@@ -12,14 +12,13 @@ def lista_clientes(request):
     return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
 
 
-def nuevo_cliente(request):
+def nuevo_cliente(request, grupo):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         apellido = request.POST.get('apellido')
         dni = request.POST.get('dni')
         telefono = request.POST.get('telefono')
         direccion = request.POST.get('direccion')
-        grupo = request.POST.get('grupo')
 
         if Cliente.objects.filter(dni=dni).exists():
             messages.error(request, "El cliente ya está registrado.")
@@ -30,11 +29,12 @@ def nuevo_cliente(request):
                 dni=dni,
                 telefono=telefono,
                 direccion=direccion,
-                grupo=grupo
+                grupo=grupo  # Usamos el 'grupo' de la URL
             )
             messages.success(request, "Cliente añadido exitosamente.")
-        return redirect('lista_clientes')
-    return render(request, 'bidones/nuevo_cliente.html')
+        return redirect("registro_clientes", grupo=grupo)  # Redirigimos con el 'grupo'
+    
+    return render(request, 'bidones/nuevo_cliente.html', {'grupo': grupo})  # Pasamos el grupo a la plantilla
 
 
 def editar_cliente(request, cliente_id):
