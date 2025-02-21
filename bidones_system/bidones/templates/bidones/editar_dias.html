@@ -1,0 +1,51 @@
+{% extends "bidones/base_template.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <h1 class="text-center">Editar Registro del Día</h1>
+    <form action="" method="POST" class="shadow p-4 rounded">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="cliente" class="form-label">Cliente</label>
+            <input type="text" class="form-control" id="cliente" name="cliente" value="{{ dia.cliente.nombre }}" disabled>
+        </div>
+        
+        <div class="mb-3">
+            <label for="bidones_20L" class="form-label">Bidones de 20L</label>
+            <input type="number" class="form-control" id="bidones_20L" name="bidones_20L" value="{{ dia.bidones_20L }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="bidones_15L" class="form-label">Bidones de 15L</label>
+            <input type="number" class="form-control" id="bidones_15L" name="bidones_15L" value="{{ dia.bidones_15L }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="precio_total" class="form-label">Precio Total</label>
+            <input type="text" class="form-control" id="precio_total" name="precio_total" value="{{ dia.precio_total }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="paga" class="form-label">Pagó</label>
+            <input type="text" class="form-control" id="paga" name="paga" value="{{ dia.paga }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="debe" class="form-label">Debe</label>
+            <input type="text" class="form-control" id="debe" name="debe" value="{{ dia.debe }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="alquila" class="form-label">Alquila</label>
+            <input type="number" class="form-control" id="alquila" name="alquila" value="{{ dia.alquila }}" required>
+        </div>
+        
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'lista_dia' grupo=dia.cliente.grupo %}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

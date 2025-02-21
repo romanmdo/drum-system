@@ -18,15 +18,18 @@ urlpatterns = [
     # ________ Registro de clientes y días ________ #
     path('registro-clientes/', views.registro_clientes, name='registro_clientes'),
 
-    #path('registro-dia/', views.registro_dia, name='registro_dia'),
+    path('lista-ruta', views.ruta, name="ruta"),
 
     # ________ Gestión de clientes ________ #
     path('clientes/', views_clientes.lista_clientes, name='lista_clientes'),
     path('clientes/new/', views_clientes.nuevo_cliente, name='nuevo_cliente'),
     path('clientes/edit/<int:cliente_id>/', views_clientes.editar_cliente, name='editar_cliente'),
     path('clientes/delete/<int:cliente_id>/', views_clientes.eliminar_cliente, name='eliminar_cliente'),
+    #path("clientes/search/", views_dia.buscar_cliente, name="buscar_cliente"),
 
     # ________ Gestión de días ________ #
     path('lista-dia/<int:grupo>/', views.lista_dia, name='lista_dia'),
     path('agregar-dia/', views_dia.agregar_dia, name='agregar_dia'),
+    path("editar-dia/<int:dia_id>/", views_dia.editar_dia, name="editar_dia"),
+    path("eliminar-dia/<int:dia_id>/", views_dia.eliminar_dia, name="eliminar_dia"),
 ]

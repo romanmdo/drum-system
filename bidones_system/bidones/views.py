@@ -31,7 +31,8 @@ def lista_clientes(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
 
-
+def ruta(request):
+    return render(request, 'bidones/lista_ruta.html')
 
 def superuser_required(user):
     """Verifica si el usuario es superusuario."""
@@ -57,7 +58,6 @@ def lista_dia(request, grupo):
         'dias': page_obj,  # Paginamos los días
         'grupo': grupo,
     })
-
 
 
 

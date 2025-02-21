@@ -1,0 +1,104 @@
+# Manantiales Santa Catalina - Sistema de Gestión de Clientes y Pedidos
+
+## 📌 Descripción
+Este proyecto es un **sistema de gestión de clientes y pedidos** diseñado para la empresa **Román Maldonado**, optimizando el registro y seguimiento de entregas de bidones de agua. Se desarrolló con **Django** y **MySQL**, integrando una interfaz moderna para facilitar su uso. Además, se implementaron herramientas de **automatización con IA** para mejorar la eficiencia en tareas repetitivas y minimizar errores humanos.
+
+---
+
+## 🚀 Características Principales
+✅ **Gestión de Clientes:** Alta, baja y modificación de clientes con una interfaz intuitiva.  
+✅ **Registro de Pedidos:** Seguimiento detallado de pedidos con cálculo automático de pagos y deudas.  
+✅ **Búsqueda Avanzada:** Implementación de un campo de búsqueda para localizar clientes rápidamente.  
+✅ **Interfaz Moderna:** Uso de Bootstrap para una experiencia de usuario optimizada.  
+✅ **Automatización con IA:** Integración de IA para la optimización de procesos repetitivos y reducción de tiempos de trabajo.  
+✅ **Seguridad y Escalabilidad:** Uso de MySQL para manejo de grandes volúmenes de datos y seguridad en la información.  
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+- **Backend:** Django (Python)
+- **Base de Datos:** MySQL
+- **Frontend:** Bootstrap, HTML, CSS, JavaScript
+- **Automatización:** IA aplicada en optimización de registros y cálculos
+- **Despliegue:** Hosting en DonWeb
+
+---
+
+## 📌 Instalación y Configuración
+### 🔹 Requisitos Previos
+Antes de comenzar, asegúrate de tener instalado:
+- **Python 3.x**
+- **Django** (`pip install django`)
+- **MySQL Server**
+- **Virtualenv** (opcional, pero recomendado)
+
+### 🔹 Pasos de Instalación
+1️⃣ **Clonar el repositorio**
+```bash
+ git clone https://github.com/usuario/proyecto.git
+ cd proyecto
+```
+
+2️⃣ **Crear un entorno virtual y activarlo**
+```bash
+python -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+```
+
+3️⃣ **Instalar dependencias**
+```bash
+pip install -r requirements.txt
+```
+
+4️⃣ **Configurar la base de datos**
+Modificar el archivo `settings.py` con las credenciales de MySQL:
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'manantiales_db',
+        'USER': 'tu_usuario',
+        'PASSWORD': 'tu_contraseña',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+```
+
+5️⃣ **Aplicar migraciones y crear superusuario**
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+6️⃣ **Ejecutar el servidor**
+```bash
+python manage.py runserver
+```
+
+El sistema estará disponible en **http://127.0.0.1:8000/** 🚀
+
+---
+
+## 🎯 Uso del Sistema
+### 📍 Acceso al Panel de Administración
+🔹 Ingresar a **http://127.0.0.1:8000/admin/** y usar el superusuario creado.  
+🔹 Desde el panel se pueden gestionar clientes, pedidos y más.
+
+### 📍 Funcionalidades Clave
+- **Registrar clientes y pedidos de forma rápida**
+- **Editar y eliminar registros con un solo clic**
+- **Búsqueda avanzada para encontrar clientes fácilmente**
+- **Historial de pedidos por cliente para un mejor control**
+
+---
+
+## 📦 Despliegue en Producción
+Para desplegar en un servidor real, se recomienda **Gunicorn + Nginx** o un servicio en la nube como **Heroku, AWS o DonWeb**. También se debe configurar el uso de `ALLOWED_HOSTS` en `settings.py`.
+
+---
+
+## 🔗 Contacto y Contribuciones
+Si deseas contribuir o tienes dudas, contáctame en [Instagram](https://www.instagram.com/master.fiix) o envía un PR en GitHub. ¡Toda ayuda es bienvenida! 🚀
+
