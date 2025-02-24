@@ -1,103 +1,102 @@
-# Manantiales Santa Catalina - Sistema de Gestión de Clientes y Pedidos
+# Manantiales Santa Catalina - Customer and Order Management System
 
-## 📌 Descripción
-Este proyecto es un **sistema de gestión de clientes y pedidos** diseñado para la empresa **Manantiales Santa Catalina**, optimizando el registro y seguimiento de entregas de bidones de agua. Se desarrolló con **Django** y **MySQL**, integrando una interfaz moderna para facilitar su uso. Además, se implementaron herramientas de **automatización con IA** para mejorar la eficiencia en tareas repetitivas y minimizar errores humanos.
-
----
-
-## 🚀 Características Principales
-✅ **Gestión de Clientes:** Alta, baja y modificación de clientes con una interfaz intuitiva.  
-✅ **Registro de Pedidos:** Seguimiento detallado de pedidos con cálculo automático de pagos y deudas.  
-✅ **Búsqueda Avanzada:** Implementación de un campo de búsqueda para localizar clientes rápidamente.  
-✅ **Interfaz Moderna:** Uso de Bootstrap para una experiencia de usuario optimizada.  
-✅ **Automatización con IA:** Integración de IA para la optimización de procesos repetitivos y reducción de tiempos de trabajo.  
-✅ **Seguridad y Escalabilidad:** Uso de MySQL para manejo de grandes volúmenes de datos y seguridad en la información.  
+## 📌 Description
+This project is a **customer and order management system** designed for the company **Manantiales Santa Catalina**, optimizing the registration and tracking of water bottle deliveries. It was developed with **Django** and **MySQL**, integrating a modern interface to facilitate its use. Additionally, **AI automation tools** were implemented to improve efficiency in repetitive tasks and minimize human errors.
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## 🚀 Main Features
+✅ **Customer Management:** Add, delete, and modify customers with an intuitive interface.  
+✅ **Order Registration:** Detailed tracking of orders with automatic calculation of payments and debts.  
+✅ **Advanced Search:** Implementation of a search field to quickly locate customers.  
+✅ **Modern Interface:** Use of Bootstrap for an optimized user experience.  
+✅ **AI Automation:** Integration of AI to optimize repetitive processes and reduce working times.  
+✅ **Security and Scalability:** Use of MySQL to handle large volumes of data and ensure information security.  
+
+---
+
+## 🛠️ Technologies Used
 - **Backend:** Django (Python)
-- **Base de Datos:** MySQL
+- **Database:** MySQL
 - **Frontend:** Bootstrap, HTML, CSS, JavaScript
-- **Automatización:** IA aplicada en optimización de registros y cálculos
+- **Automation:** AI applied to optimize records and calculations
 
 ---
 
-## 📌 Instalación y Configuración
-### 🔹 Requisitos Previos
-Antes de comenzar, asegúrate de tener instalado:
+## 📌 Installation and Setup
+### 🔹 Prerequisites
+Before starting, make sure you have installed:
 - **Python 3.x**
 - **Django** (`pip install django`)
 - **MySQL Server**
-- **Virtualenv** (opcional, pero recomendado)
+- **Virtualenv** (optional but recommended)
 
-### 🔹 Pasos de Instalación
-1️⃣ **Clonar el repositorio**
+### 🔹 Installation Steps
+1️⃣ **Clone the repository**
 ```bash
- git clone https://github.com/usuario/proyecto.git
- cd proyecto
+ git clone https://github.com/username/project.git
+ cd project
 ```
 
-2️⃣ **Crear un entorno virtual y activarlo**
+2️⃣ **Create a virtual environment and activate it**
 ```bash
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3️⃣ **Instalar dependencias**
+3️⃣ **Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-4️⃣ **Configurar la base de datos**
-Modificar el archivo `settings.py` con las credenciales de MySQL:
+4️⃣ **Configure the database**
+Modify the `settings.py` file with your MySQL credentials:
 ```python
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'manantiales_db',
-        'USER': 'tu_usuario',
-        'PASSWORD': 'tu_contraseña',
+        'USER': 'your_user',
+        'PASSWORD': 'your_password',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
 ```
 
-5️⃣ **Aplicar migraciones y crear superusuario**
+5️⃣ **Apply migrations and create a superuser**
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 ```
 
-6️⃣ **Ejecutar el servidor**
+6️⃣ **Run the server**
 ```bash
 python manage.py runserver
 ```
 
-El sistema estará disponible en **http://127.0.0.1:8000/** 🚀
+The system will be available at **http://127.0.0.1:8000/** 🚀
 
 ---
 
-## 🎯 Uso del Sistema
-### 📍 Acceso al Panel de Administración
-🔹 Ingresar a **http://127.0.0.1:8000/admin/** y usar el superusuario creado.  
-🔹 Desde el panel se pueden gestionar clientes, pedidos y más.
+## 🎯 System Usage
+### 📍 Access the Admin Panel
+🔹 Go to **http://127.0.0.1:8000/admin/** and log in with the superuser created.  
+🔹 From the admin panel, you can manage customers, orders, and more.
 
-### 📍 Funcionalidades Clave
-- **Registrar clientes y pedidos de forma rápida**
-- **Editar y eliminar registros con un solo clic**
-- **Búsqueda avanzada para encontrar clientes fácilmente**
-- **Historial de pedidos por cliente para un mejor control**
-
----
-
-## 📦 Despliegue en Producción
-Para desplegar en un servidor real, se recomienda **Gunicorn + Nginx** o un servicio en la nube como **Heroku, AWS o DonWeb**. También se debe configurar el uso de `ALLOWED_HOSTS` en `settings.py`.
+### 📍 Key Features
+- **Register customers and orders quickly**
+- **Edit and delete records with a single click**
+- **Advanced search to easily find customers**
+- **Customer order history for better control**
 
 ---
 
-## 🔗 Contacto y Contribuciones
-Si deseas contribuir o tienes dudas, contáctame en [Instagram](https://www.instagram.com/master.fiix) o envía un PR en GitHub. ¡Toda ayuda es bienvenida! 🚀
+## 📦 Deployment to Production
+For deploying to a real server, it is recommended to use **Gunicorn + Nginx** or a cloud service such as **Heroku, AWS, or DonWeb**. Also, make sure to configure `ALLOWED_HOSTS` in `settings.py`.
 
+---
+
+## 🔗 Contact and Contributions
+If you want to contribute or have questions, contact me on [Instagram](https://www.instagram.com/master.fiix) or send a PR on GitHub. Any help is appreciated! 🚀
