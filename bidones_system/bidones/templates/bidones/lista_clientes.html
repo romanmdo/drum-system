@@ -93,71 +93,235 @@
         </div>
     </div>
 
-    <!-- Tabla de clientes -->
-    <div class="table-responsive shadow rounded">
-        <table class="table table-hover table-striped align-middle text-center">
-            <thead class="table-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Apellido</th>
-                    <th>Nombre</th>
-                    <th>DNI</th>
-                    <th>Dirección</th>
-                    <th>Teléfono</th>
-                    <th>Cant. de bidones en el domicilio</th>
-                    <th>Observaciones</th>
-                    <th>Pertenece al grupo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="container my-8 px-4 mx-auto max-w-7xl">
+        <!-- Mensajes mejorados -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-4 p-4 rounded-lg bg-blue-50 border-l-4 border-blue-500 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg class="h-5 w-5 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <p class="text-blue-700">{{ message }}</p>
+                    </div>
+                    <button class="text-blue-500 hover:text-blue-700" onclick="this.parentElement.remove()">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Tabla Mejorada -->
+        <div class="container my-8 px-4 mx-auto max-w-7xl">
+
+            <!-- Tabla Mejorada con Vista Móvil -->
+            <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                <!-- Vista Desktop -->
+                <div class="hidden md:block overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Apellido</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">DNI</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dirección</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bidones</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Observaciones</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grupo</th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for cliente in page_obj %}
+                            <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ cliente.id }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ cliente.apellido }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ cliente.nombre }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ cliente.dni }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ cliente.direccion }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ cliente.telefono }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ cliente.bidones_cantidad }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ cliente.observaciones }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-primary text-white">
+                                        Grupo {{ cliente.grupo }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="flex justify-end space-x-2">
+                                        <a href="{% url 'editar_cliente' cliente.id %}" 
+                                        class="inline-flex items-center px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md transition-colors duration-200">
+                                            <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                            </svg>
+                                            Editar
+                                        </a>
+                                        <a href="{% url 'eliminar_cliente' cliente.id %}" 
+                                        class="inline-flex items-center px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md transition-colors duration-200"
+                                        onclick="return confirm('¿Está seguro que desea eliminar este cliente?')">
+                                            <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                            </svg>
+                                            Eliminar
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="10" class="px-6 py-4 text-center text-gray-500">
+                                    No hay clientes registrados
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="block md:hidden">
                 {% for cliente in page_obj %}
-                    <tr>
-                        <th scope="row">{{ cliente.id }}</th>
-                        <td>{{ cliente.apellido }}</td>
-                        <td>{{ cliente.nombre }}</td>
-                        <td>{{ cliente.dni }}</td>
-                        <td>{{ cliente.direccion }}</td>
-                        <td>{{ cliente.telefono }}</td>
-                        <td>{{ cliente.bidones_cantidad }}</td>
-                        <td>{{ cliente.observaciones }}</td>
-                        <td>{{ cliente.grupo }}</td>
-                        <td>
-                            <div class="d-flex justify-content-center gap-2">
-                                <a class="btn btn-warning btn-sm shadow" href="{% url 'editar_cliente' cliente.id %}" aria-label="Editar cliente">
-                                    <i class="fas fa-edit"></i> Editar
-                                </a>
-                                <a class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}">Eliminar</a>
-                            </div>
-                        </td>
-                    </tr>
+                <div class="p-4 border-b border-gray-200">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-500">ID:</span>
+                            <span class="text-sm text-gray-900">#{{ cliente.id }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-500">Apellido:</span>
+                            <span class="text-sm text-gray-900">{{ cliente.apellido }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-500">Nombre:</span>
+                            <span class="text-sm text-gray-900">{{ cliente.nombre }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-500">DNI:</span>
+                            <span class="text-sm text-gray-900">{{ cliente.dni }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-500">Dirección:</span>
+                            <span class="text-sm text-gray-900">{{ cliente.direccion }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-500">Teléfono:</span>
+                            <span class="text-sm text-gray-900">{{ cliente.telefono }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-500">Bidones:</span>
+                            <span class="text-sm text-gray-900">{{ cliente.bidones_cantidad }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-500">Observaciones:</span>
+                            <span class="text-sm text-gray-900">{{ cliente.observaciones|default:"-" }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-500">Grupo:</span>
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-primary text-white">
+                                Grupo {{ cliente.grupo }}
+                            </span>
+                        </div>
+    
+                        <!-- Botones de acción -->
+                        <div class="flex justify-end space-x-2 pt-3 border-t border-gray-100">
+                            <a href="{% url 'editar_cliente' cliente.id %}" 
+                               class="inline-flex items-center px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md transition-colors duration-200">
+                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                </svg>
+                                Editar
+                            </a>
+                            <a href="{% url 'eliminar_cliente' cliente.id %}" 
+                               class="inline-flex items-center px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md transition-colors duration-200"
+                               onclick="return confirm('¿Está seguro que desea eliminar este cliente?')">
+                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                                Eliminar
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 {% empty %}
-                    <tr>
-                        <td colspan="6">No hay clientes registrados</td>
-                    </tr>
+                <div class="p-4 text-center text-gray-500">
+                    No hay clientes registrados
+                </div>
                 {% endfor %}
-            </tbody>
-        </table>
+            </div>
+        </div>
+        </div>
+
+        <!-- Paginación Mejorada -->
+        {% if page_obj.paginator.num_pages > 1 %}
+        <div class="mt-6 flex justify-center">
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" 
+                class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    <span class="sr-only">Previous</span>
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </a>
+                {% endif %}
+
+                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" 
+                class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                    <span class="sr-only">Next</span>
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
     </div>
 
-    <!-- Paginación -->
-    <nav>
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
-                </li>
-            {% endif %}
-            <li class="page-item active">
-                <a class="page-link">{{ page_obj.number }}</a>
-            </li>
-            {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-</div>
+    <!-- Modal Mejorado -->
+    <div class="modal fade" id="add__form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-lg shadow-xl">
+                <div class="modal-header border-b bg-gray-50 rounded-t-lg">
+                    <h5 class="modal-title text-lg font-semibold text-gray-900" id="exampleModalLabel">Añadir Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-6">
+                    <form action="{% url 'nuevo_cliente' grupo=grupo %}" method="POST" class="space-y-4">
+                        {% csrf_token %}
+                        <!-- Campos del formulario mejorados -->
+                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div>
+                                <label for="apellido" class="block text-sm font-medium text-gray-700">Apellido</label>
+                                <input type="text" id="apellido" name="apellido" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+                            </div>
+                            <!-- Repite para otros campos -->
+                        </div>
+                        <button type="submit" 
+                                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            Guardar Cliente
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

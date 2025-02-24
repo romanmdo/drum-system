@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Manantiales Santa Catalina - Holmberg </title>
+        <title>Manantiales Santa Catalina - Holmberg</title>
         <link rel="shortcut icon" href="{% static 'bidones/assets/logo-bidones.png' %}">
 
         <!-- Tailwind CSS -->
@@ -15,8 +15,15 @@
                 theme: {
                     extend: {
                         colors: {
-                            primary: '#0077be',
-                            secondary: '#00a86b',
+                            'primary': '#0F4C81',
+                            'primary-dark': '#0A3A63',
+                            'text': '#E8F6FF',
+                            'gray-menu-button': '#3C6C99',
+                            'gray-menu-button-hover': '#2A4A6E',
+                            'gray-text-hover': '#5B8DBD',
+                        },
+                        fontFamily: {
+                            'coolvetica': ['CooVeltica', 'sans-serif'],
                         }
                     }
                 }
@@ -24,36 +31,139 @@
         </script>
 
         <style>
-            /* Add custom styles for dropdown */
-            .dropdown:hover .dropdown-menu {
-                display: block;
+            @font-face {
+                font-family: 'CooVeltica';
+                src: url('../../fonts/Coolvetica Rg.otf') format('truetype');
             }
+
+            * {
+                font-family: 'CooVeltica', Arial, sans-serif;
+            }
+
+            /* Header y Nav mejorados */
+            .header {
+                background: linear-gradient(to right, #0F4C81, #0A3A63);
+                position: fixed;
+                width: 100%;
+                top: 0;
+                z-index: 1000;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Dropdown mejorado */
             .dropdown-menu {
                 display: none;
                 position: absolute;
-                background-color: #0077be;
-                min-width: 160px;
-                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                z-index: 1;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                min-width: 220px;
+                border-radius: 0.75rem;
+                box-shadow: 0 4px 20px rgba(15, 76, 129, 0.15);
+                transform-origin: top;
+                animation: slideDown 0.2s ease-out;
+                border: 1px solid rgba(57, 160, 237, 0.1);
+                top: 100%;
+                left: 0;
+                margin-top: 0.5rem;
             }
+
+            .dropdown:hover .dropdown-menu {
+                display: block;
+            }
+
             .dropdown-menu a {
-                color: rgb(4, 0, 0);
-                padding: 12px 16px;
+                color: var(--primary);
+                padding: 0.75rem 1rem;
                 text-decoration: none;
                 display: block;
-                transition: .5s all;
+                transition: all 0.3s ease;
+                border-radius: 0.5rem;
+                margin: 0.25rem;
             }
+
             .dropdown-menu a:hover {
-                background-color: #0554ff6f;
+                background-color: rgba(15, 76, 129, 0.1);
+                color: #3C6C99;
+                transform: translateX(5px);
+            }
+
+            /* Animaciones */
+            @keyframes slideDown {
+                0% {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Efectos hover mejorados */
+            .nav-link {
+                position: relative;
+                color: var(--text);
+                padding-bottom: 2px;
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -2px;
+                left: 0;
+                background: linear-gradient(90deg, #5B8DBD, #E8F6FF);
+                transition: width 0.3s ease;
+            }
+
+            .nav-link:hover::after {
+                width: 100%;
+            }
+
+            /* Botón CTA mejorado */
+            .cta-button {
+                background: linear-gradient(45deg, #3C6C99, #0F4C81);
+                color: var(--text);
+                padding: 0.75rem 1.5rem;
+                border-radius: 9999px;
+                font-weight: bold;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+            }
+
+            .cta-button:hover {
+                background: linear-gradient(45deg, #0F4C81, #3C6C99);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(15, 76, 129, 0.3);
+            }
+
+            /* Mobile menu mejorado */
+            #mobile-menu {
+                background: linear-gradient(to bottom, #0F4C81, #0A3A63);
+                border-radius: 0 0 1rem 1rem;
+                margin-top: 1px;
+            }
+
+            .mobile-link {
+                color: var(--text);
+                padding: 0.75rem 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-link:hover {
+                background: rgba(255, 255, 255, 0.1);
             }
         </style>
 
-        <!-- Custom CSS -->
+        <!-- Tus CSS existentes -->
         <link rel="stylesheet" href="{% static 'bidones/styles/css/header.css' %}">
         <link rel="stylesheet" href="{% static 'bidones/styles/css/informacion.css' %}">
         <link rel="stylesheet" href="{% static 'bidones/styles/css/tablas.css' %}">
         <link rel="stylesheet" href="{% static 'bidones/styles/css/crud.css' %}">
-
+        
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
@@ -61,90 +171,143 @@
 
         {% block resources %}{% endblock %}
     </head>
-    <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-        <header class="bg-primary text-white shadow-lg">
-            <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-                <div class="flex items-center">
-                    <a href="/" class="flex items-center">
-                        <img src="{% static 'bidones/assets/logo-bidones.png' %}" alt="Logo" class="h-10 w-10 mr-3">
-                        <span class="font-bold text-xl">Manantiales Santa Catalina</span>
+    <body class="bg-gray-100 font-coolvetica">
+        <header class="header">
+            <nav class="container mx-auto px-6 py-3">
+                <div class="flex justify-between items-center">
+                    <a href="/" class="flex items-center group">
+                        <img src="{% static 'bidones/assets/logo-bidones.png' %}" 
+                             alt="Logo" 
+                             class="h-12 w-12 mr-3 transform transition-transform group-hover:scale-110">
+                        <span class="font-bold text-xl text-text group-hover:text-gray-text-hover transition-colors duration-300">
+                            Manantiales Santa Catalina
+                        </span>
                     </a>
-                </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="/inicio/" class="hover:text-secondary transition duration-300">Inicio</a>
-                    <div class="dropdown relative inline-block">
-                        <button class="hover:text-secondary transition duration-300">CRUD</button>
-                        <div class="dropdown-menu">
-                            <a href="{% url 'registro_clientes' grupo=1 %}">Grupo 1</a>
-                            <a href="{% url 'registro_clientes' grupo=2 %}">Grupo 2</a>
-                            <a href="{% url 'registro_clientes' grupo=3 %}">Grupo 3</a>
-                            <a href="{% url 'registro_clientes' grupo=4 %}">Grupo 4</a>
-                            <a href="{% url 'registro_clientes' grupo=5 %}">Grupo 5</a>
-                            <a href="{% url 'registro_clientes' grupo=6 %}">Grupo 6</a>
-                            <a href="{% url 'registro_clientes' grupo=7 %}">Grupo 7</a>
-                            <a href="{% url 'registro_clientes' grupo=8 %}">Grupo 8</a>
+
+                    <!-- Navegación Desktop -->
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="/inicio/" class="nav-link">Inicio</a>
+                        
+                        <div class="dropdown relative group">
+                            <button class="nav-link flex items-center asd">
+                                CRUD
+                                <svg class="w-4 h-4 ml-1 transform group-hover:rotate-180 transition-transform" 
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="{% url 'registro_clientes' grupo=1 %}">Grupo 1</a>
+                                <a href="{% url 'registro_clientes' grupo=2 %}">Grupo 2</a>
+                                <a href="{% url 'registro_clientes' grupo=3 %}">Grupo 3</a>
+                                <a href="{% url 'registro_clientes' grupo=4 %}">Grupo 4</a>
+                                <a href="{% url 'registro_clientes' grupo=5 %}">Grupo 5</a>
+                                <a href="{% url 'registro_clientes' grupo=6 %}">Grupo 6</a>
+                                <a href="{% url 'registro_clientes' grupo=7 %}">Grupo 7</a>
+                                <a href="{% url 'registro_clientes' grupo=8 %}">Grupo 8</a>
+                            </div>
                         </div>
-                    </div>
-                    <a href="/lista-ruta" class="hover:text-secondary transition duration-300">Ruta de viajes</a>
-                    <div class="dropdown relative inline-block">
-                        <button class="hover:text-secondary transition duration-300">Día a día</button>
-                        <div class="dropdown-menu">
-                            <a href="{% url 'lista_dia' grupo=1 %}">Grupo 1</a>
-                            <a href="{% url 'lista_dia' grupo=2 %}">Grupo 2</a>
-                            <a href="{% url 'lista_dia' grupo=3 %}">Grupo 3</a>
-                            <a href="{% url 'lista_dia' grupo=4 %}">Grupo 4</a>
-                            <a href="{% url 'lista_dia' grupo=5 %}">Grupo 5</a>
-                            <a href="{% url 'lista_dia' grupo=6 %}">Grupo 6</a>
-                            <a href="{% url 'lista_dia' grupo=7 %}">Grupo 7</a>
-                            <a href="{% url 'lista_dia' grupo=8 %}">Grupo 8</a>
+
+                        <a href="/lista-ruta" class="nav-link">Ruta de viajes</a>
+
+                        <div class="dropdown relative group">
+                            <button class="nav-link flex items-center">
+                                Día a día
+                                <svg class="w-4 h-4 ml-1 transform group-hover:rotate-180 transition-transform" 
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="{% url 'lista_dia' grupo=1 %}">Grupo 1</a>
+                                <a href="{% url 'lista_dia' grupo=2 %}">Grupo 2</a>
+                                <a href="{% url 'lista_dia' grupo=3 %}">Grupo 3</a>
+                                <a href="{% url 'lista_dia' grupo=4 %}">Grupo 4</a>
+                                <a href="{% url 'lista_dia' grupo=5 %}">Grupo 5</a>
+                                <a href="{% url 'lista_dia' grupo=6 %}">Grupo 6</a>
+                                <a href="{% url 'lista_dia' grupo=7 %}">Grupo 7</a>
+                                <a href="{% url 'lista_dia' grupo=8 %}">Grupo 8</a>
+                            </div>
                         </div>
+
+                        <button class="cta-button">
+                            QUIERO SER CLIENTE
+                        </button>
                     </div>
-                    <button class="bg-secondary hover:bg-secondary-dark text-white font-bold py-2 px-4 rounded transition duration-300">
-                        QUIERO SER CLIENTE
+
+                    <!-- Botón Menú Móvil -->
+                    <button id="mobile-menu-button" 
+                            class="md:hidden text-text hover:text-gray-text-hover focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
                     </button>
                 </div>
+            </nav>
 
-                <!-- Update the mobile menu -->
-                <div id="mobile-menu" class="hidden md:hidden bg-primary">
-                    <a href="/inicio/" class="block py-2 px-4 text-sm hover:bg-secondary">Inicio</a>
-                    {% if request.user.is_authenticated and request.user.is_superuser %}
-                    <button id="crud-dropdown-button" class="w-full text-left py-2 px-4 text-sm hover:bg-secondary">CRUD</button>
+            <!-- Menú Móvil -->
+            <div id="mobile-menu" class="hidden md:hidden">
+                <a href="/inicio/" class="mobile-link block">Inicio</a>
+                
+                {% if request.user.is_authenticated and request.user.is_superuser %}
+                <div class="border-t border-gray-700">
+                    <button id="crud-dropdown-button" 
+                            class="mobile-link w-full text-left flex justify-between items-center">
+                        CRUD
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
                     <div id="crud-dropdown-menu" class="hidden pl-4">
-                        <a href="{% url 'registro_clientes' grupo=1 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 1</a>
-                        <a href="{% url 'registro_clientes' grupo=2 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 2</a>
-                        <a href="{% url 'registro_clientes' grupo=3 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 3</a>
-                        <a href="{% url 'registro_clientes' grupo=4 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 4</a>
-                        <a href="{% url 'registro_clientes' grupo=5 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 5</a>
-                        <a href="{% url 'registro_clientes' grupo=6 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 6</a>
-                        <a href="{% url 'registro_clientes' grupo=7 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 7</a>
-                        <a href="{% url 'registro_clientes' grupo=8 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 8</a>
+                        <!-- Grupos CRUD -->
+                        <a href="{% url 'registro_clientes' grupo=1 %}" class="mobile-link block">Grupo 1</a>
+                        <a href="{% url 'registro_clientes' grupo=2 %}" class="mobile-link block">Grupo 2</a>
+                        <a href="{% url 'registro_clientes' grupo=3 %}" class="mobile-link block">Grupo 3</a>
+                        <a href="{% url 'registro_clientes' grupo=4 %}" class="mobile-link block">Grupo 4</a>
+                        <a href="{% url 'registro_clientes' grupo=5 %}" class="mobile-link block">Grupo 5</a>
+                        <a href="{% url 'registro_clientes' grupo=6 %}" class="mobile-link block">Grupo 6</a>
+                        <a href="{% url 'registro_clientes' grupo=7 %}" class="mobile-link block">Grupo 7</a>
+                        <a href="{% url 'registro_clientes' grupo=8 %}" class="mobile-link block">Grupo 8</a>
                     </div>
-
-                    <a href="/lista-ruta" class="block py-2 px-4 text-sm hover:bg-secondary">Ruta de viajes</a>
-                    
-                    <button id="dia-dropdown-button" class="w-full text-left py-2 px-4 text-sm hover:bg-secondary">Día a día</button>
-                    <div id="dia-dropdown-menu" class="hidden pl-4">
-                        <a href="{% url 'lista_dia' grupo=1 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 1</a>
-                        <a href="{% url 'lista_dia' grupo=2 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 2</a>
-                        <a href="{% url 'lista_dia' grupo=3 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 3</a>
-                        <a href="{% url 'lista_dia' grupo=4 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 4</a>
-                        <a href="{% url 'lista_dia' grupo=5 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 5</a>
-                        <a href="{% url 'lista_dia' grupo=6 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 6</a>
-                        <a href="{% url 'lista_dia' grupo=7 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 7</a>
-                        <a href="{% url 'lista_dia' grupo=8 %}" class="block py-2 px-4 text-sm hover:bg-secondary">Grupo 8</a>
-                    </div>
-                    {% endif %}
-                    
-                    <button class="block w-full text-left py-2 px-4 text-sm bg-secondary hover:bg-secondary-dark">
-                        QUIERO SER CLIENTE
-                    </button>
                 </div>
+
+                <a href="/lista-ruta" class="mobile-link block border-t border-gray-700">Ruta de viajes</a>
+
+                <div class="border-t border-gray-700">
+                    <button id="dia-dropdown-button" 
+                            class="mobile-link w-full text-left flex justify-between items-center">
+                        Día a día
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="dia-dropdown-menu" class="hidden pl-4">
+                        <!-- Grupos Día a día -->
+                        <a href="{% url 'lista_dia' grupo=1 %}" class="mobile-link block">Grupo 1</a>
+                        <a href="{% url 'lista_dia' grupo=2 %}" class="mobile-link block">Grupo 2</a>
+                        <a href="{% url 'lista_dia' grupo=3 %}" class="mobile-link block">Grupo 3</a>
+                        <a href="{% url 'lista_dia' grupo=4 %}" class="mobile-link block">Grupo 4</a>
+                        <a href="{% url 'lista_dia' grupo=5 %}" class="mobile-link block">Grupo 5</a>
+                        <a href="{% url 'lista_dia' grupo=6 %}" class="mobile-link block">Grupo 6</a>
+                        <a href="{% url 'lista_dia' grupo=7 %}" class="mobile-link block">Grupo 7</a>
+                        <a href="{% url 'lista_dia' grupo=8 %}" class="mobile-link block">Grupo 8</a>
+                    </div>
+                </div>
+                {% endif %}
+
+                <button class="w-full text-center py-3 cta-button m-4 text-sm">
+                    QUIERO SER CLIENTE
+                </button>
+            </div>
         </header>
 
-        <main class="container mx-auto mt-6 px-4">
+        <!-- Contenido Principal -->
+        <main class="container mx-auto mt-24 px-4">
             {% block content %}{% endblock %}
         </main>
 
+        <!-- Footer -->
         <footer class="bg-gray-800 text-white mt-12">
             <div class="container mx-auto py-12 px-4">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -208,47 +371,66 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
         <script src="{% static 'scripts/main.js' %}" defer></script>
         <script src="{% static 'scripts/request.js' %}" defer></script>
+
         <script>
+            // Mobile menu toggle
             document.getElementById('mobile-menu-button').addEventListener('click', function() {
                 document.getElementById('mobile-menu').classList.toggle('hidden');
             });
 
             // CRUD dropdown toggle
-            document.getElementById('crud-dropdown-button').addEventListener('click', function(e) {
+            document.getElementById('crud-dropdown-button')?.addEventListener('click', function(e) {
                 e.stopPropagation();
                 document.getElementById('crud-dropdown-menu').classList.toggle('hidden');
-                // Close other dropdown
                 document.getElementById('dia-dropdown-menu').classList.add('hidden');
             });
 
             // Día a día dropdown toggle
-            document.getElementById('dia-dropdown-button').addEventListener('click', function(e) {
+            document.getElementById('dia-dropdown-button')?.addEventListener('click', function(e) {
                 e.stopPropagation();
                 document.getElementById('dia-dropdown-menu').classList.toggle('hidden');
-                // Close other dropdown
                 document.getElementById('crud-dropdown-menu').classList.add('hidden');
             });
 
-            // Close mobile menu and dropdowns when clicking outside
+            // Close dropdowns when clicking outside
             document.addEventListener('click', function(event) {
                 const mobileMenu = document.getElementById('mobile-menu');
                 const mobileMenuButton = document.getElementById('mobile-menu-button');
-                const crudDropdownMenu = document.getElementById('crud-dropdown-menu');
-                const crudDropdownButton = document.getElementById('crud-dropdown-button');
-                const diaDropdownMenu = document.getElementById('dia-dropdown-menu');
-                const diaDropdownButton = document.getElementById('dia-dropdown-button');
+                const dropdowns = ['crud-dropdown-menu', 'dia-dropdown-menu'];
                 
-                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
-                    mobileMenu.classList.add('hidden');
-                }
-                
-                if (!crudDropdownMenu.contains(event.target) && !crudDropdownButton.contains(event.target)) {
-                    crudDropdownMenu.classList.add('hidden');
+                if (!mobileMenu?.contains(event.target) && !mobileMenuButton?.contains(event.target)) {
+                    mobileMenu?.classList.add('hidden');
                 }
 
-                if (!diaDropdownMenu.contains(event.target) && !diaDropdownButton.contains(event.target)) {
-                    diaDropdownMenu.classList.add('hidden');
+                dropdowns.forEach(id => {
+                    const menu = document.getElementById(id);
+                    const button = document.getElementById(id.replace('-menu', '-button'));
+                    if (!menu?.contains(event.target) && !button?.contains(event.target)) {
+                        menu?.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Scroll behavior
+            let lastScroll = 0;
+            const header = document.querySelector('.header');
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll <= 0) {
+                    header.style.boxShadow = 'none';
+                    return;
                 }
+
+                if (currentScroll > lastScroll) {
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    header.style.transform = 'translateY(0)';
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                }
+
+                lastScroll = currentScroll;
             });
         </script>
     </body>
