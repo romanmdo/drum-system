@@ -12,7 +12,6 @@ def registrar_dia(request):
         precio_total = float(request.POST["precio_total"])
         paga = float(request.POST["paga"])
         debe = float(request.POST["debe"])
-        alquila = int(request.POST["alquila"])
 
         cliente = Cliente.objects.get(id=cliente_id)
 
@@ -22,8 +21,7 @@ def registrar_dia(request):
             bidones_15L=bidones_15L,
             precio_total=precio_total,
             paga=paga,
-            debe=debe,
-            alquila=alquila
+            debe=debe
         )
 
         return redirect("lista_dia", grupo=cliente.grupo) # PRESTAR ATENCION, CAMBIAR ESA VISTA
@@ -42,7 +40,6 @@ def agregar_dia(request):
         precio_total = request.POST.get("precio_total")
         paga = request.POST.get("paga")
         debe = request.POST.get("debe")
-        alquila = request.POST.get('alquila')
 
         # Verificar que los datos sean válidos
         try:
@@ -51,7 +48,6 @@ def agregar_dia(request):
             precio_total = float(precio_total)
             paga = float(paga)
             debe = float(debe)
-            alquila = int(alquila)
         except ValueError:
             messages.error(request, "Por favor ingrese valores válidos en los campos numéricos.")
             return render(request, "bidones/lista_dia.html", {'clientes': clientes})
@@ -67,7 +63,6 @@ def agregar_dia(request):
                 precio_total=precio_total,
                 paga=paga,
                 debe=debe,
-                alquila=alquila
             )
             messages.success(request, 'Pedido registrado correctamente.')
         except Cliente.DoesNotExist:
@@ -81,53 +76,38 @@ def agregar_dia(request):
     return render(request, "bidones/lista_dia.html", {'clientes': clientes})
 
 def editar_dia(request, dia_id):
-    # Obtener el registro de Día o devolver error 404 si no existe
     dia = get_object_or_404(Dia, id=dia_id)
-    clientes = Cliente.objects.all().order_by('id')  # Para mostrar en el formulario
 
     if request.method == "POST":
-        # Obtener datos del formulario
-        cliente_id = request.POST.get("cliente")
         bidones_20L = request.POST.get("bidones_20L")
         bidones_15L = request.POST.get("bidones_15L")
         precio_total = request.POST.get("precio_total")
         paga = request.POST.get("paga")
         debe = request.POST.get("debe")
-        alquila = request.POST.get("alquila")
 
-        # Validar datos
         try:
             bidones_20L = int(bidones_20L)
             bidones_15L = int(bidones_15L)
             precio_total = float(precio_total)
             paga = float(paga)
             debe = float(debe)
-            alquila = int(alquila)
         except ValueError:
-            messages.error(request, "Por favor ingrese valores válidos en los campos numéricos.")
-            return render(request, "bidones/editar_dias.html", {'dia': dia, 'clientes': clientes})
+            messages.error(request, "Por favor ingrese valores numéricos válidos.")
+            return render(request, "bidones/editar_dia.html", {'dia': dia})
 
-        # Verificar si el cliente existe
-        try:
-            cliente = Cliente.objects.get(id=cliente_id)
-        except Cliente.DoesNotExist:
-            messages.error(request, "El cliente seleccionado no existe.")
-            return render(request, "bidones/editar_dias.html", {'dia': dia, 'clientes': clientes})
-
-        # Actualizar los datos del registro
-        dia.cliente = cliente
+        # Actualizar el registro existente
         dia.bidones_20L = bidones_20L
         dia.bidones_15L = bidones_15L
         dia.precio_total = precio_total
         dia.paga = paga
         dia.debe = debe
-        dia.alquila = alquila
-        dia.save()  # Guardar cambios
+        dia.save()
 
         messages.success(request, "Registro actualizado correctamente.")
-        return redirect("lista_dia", grupo=cliente.grupo)  # Redirigir a la lista de días
+        return redirect("lista_dia", grupo=dia.cliente.grupo)
 
-    return render(request, "bidones/editar_dias.html", {"dia": dia, "clientes": clientes})
+    return render(request, "bidones/editar_dias.html", {"dia": dia})
+
 
 def lista_dia(request, grupo):
     # Filtrar los clientes por grupo

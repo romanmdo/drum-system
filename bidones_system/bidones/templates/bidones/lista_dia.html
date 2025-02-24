@@ -62,7 +62,7 @@
                                 <option value="">Seleccionar Cliente</option>
                                 {% if clientes %}
                                 {% for cliente in clientes %}
-                                        <option value="{{ cliente.id }}">{{ cliente.nombre }} {{ cliente.apellido }} - DNI: {{ cliente.dni }}</option>
+                                        <option value="{{ cliente.id }}">{{ cliente.nombre }} {{ cliente.apellido }}</option>
                                     {% endfor %}
                                 {% else %}
                                     <option value="">No hay clientes disponibles</option>
@@ -89,10 +89,6 @@
                             <label for="debe" class="col-form-label"> Total a pagar: </label>
                             <input type="number" class="form-control" name="debe" step="0.01" required>
                         </div>
-                        <div class="list-group-item">
-                            <label for="alquila" class="col-form-label"> Total de dispensers alquilados: </label>
-                            <input type="number" class="form-control" name="alquila" step="0.01" required>
-                        </div>
                         <button type="submit" class="btn btn-success mt-3"> Registrar Pedido </button>
                     </form>
                 </div>
@@ -116,7 +112,6 @@
                     <th scope="col"> Precio </th>
                     <th scope="col"> Paga </th>
                     <th scope="col"> Debe </th>
-                    <th scope="col"> Alquila </th>
                     <th scope="col"> Fecha </th>
                     <th scope="col"> Acciones </th>
                 </tr>
@@ -131,7 +126,6 @@
                         <td>${{ dia.precio_total }}</td>
                         <td>${{ dia.paga }}</td>
                         <td>${{ dia.debe }}</td>
-                        <td>{{ dia.alquila }} dispensers </td>
                         <td>{{ dia.fecha }}</td>
                         <td>
                             <a class="btn btn-warning"  href="{% url 'editar_dia' dia.id %}"> Editar </a>

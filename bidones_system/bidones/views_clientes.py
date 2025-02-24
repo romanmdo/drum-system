@@ -5,11 +5,18 @@ from django.core.paginator import Paginator
 
 def lista_clientes(request):
     clientes = Cliente.objects.all()
-    paginator = Paginator(clientes, 5)  # 10 clientes por página
+    paginator = Paginator(clientes, 5)  # 5 clientes por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
+    # Obtener grupo del primer cliente si no se pasa como parámetro
+    grupo = request.GET.get('grupo')
+    if not grupo:
+        primer_cliente = Cliente.objects.first()
+        grupo = primer_cliente.grupo if primer_cliente else 1  # Si no hay clientes, asigna grupo 1 por defecto
+
+    return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj, 'grupo': grupo})
+
 
 
 def nuevo_cliente(request, grupo):
@@ -19,8 +26,10 @@ def nuevo_cliente(request, grupo):
         dni = request.POST.get('dni')
         telefono = request.POST.get('telefono')
         direccion = request.POST.get('direccion')
+        bidones_cantidad = request.POST.get('bidones_cantidad')
+        observaciones = request.POST.get('observaciones')
 
-        if Cliente.objects.filter(dni=dni).exists():
+        if Cliente.objects.filter(nombre=nombre).exists():
             messages.error(request, "El cliente ya está registrado.")
         else:
             Cliente.objects.create(
@@ -29,7 +38,9 @@ def nuevo_cliente(request, grupo):
                 dni=dni,
                 telefono=telefono,
                 direccion=direccion,
-                grupo=grupo  # Usamos el 'grupo' de la URL
+                grupo=grupo,
+                bidones_cantidad=bidones_cantidad,
+                observaciones=observaciones
             )
             messages.success(request, "Cliente añadido exitosamente.")
         return redirect("registro_clientes", grupo=grupo)  # Redirigimos con el 'grupo'
@@ -47,6 +58,8 @@ def editar_cliente(request, cliente_id):
         telefono = request.POST.get('telefono')
         direccion = request.POST.get('direccion')
         grupo = request.POST.get('grupo')
+        bidones_cantidad = request.POST.get('bidones_cantidad')
+        observaciones = request.POST.get('observaciones')
 
         if Cliente.objects.filter(dni=dni).exclude(id=cliente_id).exists():
             messages.error(request, "El DNI ingresado ya pertenece a otro cliente.")
@@ -57,10 +70,12 @@ def editar_cliente(request, cliente_id):
             cliente.telefono = telefono
             cliente.direccion = direccion
             cliente.grupo = grupo
+            cliente.bidones_cantidad = bidones_cantidad
+            cliente.observaciones = observaciones
             cliente.save() 
 
             messages.success(request, "Cliente actualizado exitosamente.")
-            return redirect('lista_clientes')
+            return redirect('registro_clientes', grupo=cliente.grupo)
 
     return render(request, 'bidones/editar_cliente.html', {'cliente': cliente})
 

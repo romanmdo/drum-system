@@ -5,15 +5,15 @@
     <h1 class="text-center">Editar Cliente</h1>
     <form action="" method="POST" class="shadow p-4 rounded">
         {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" value="{{ cliente.apellido }}" required>
+        </div>
         
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="nombre" name="nombre" value="{{ cliente.nombre }}" required>
-        </div>
-        
-        <div class="mb-3">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="apellido" name="apellido" value="{{ cliente.apellido }}" required>
         </div>
         
         <div class="mb-3">
@@ -22,13 +22,23 @@
         </div>
         
         <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" name="direccion" value="{{ cliente.direccion }}">
+        </div>
+
+        <div class="mb-3">
             <label for="telefono" class="form-label">Teléfono</label>
             <input type="text" class="form-control" id="telefono" name="telefono" value="{{ cliente.telefono }}">
         </div>
 
         <div class="mb-3">
-            <label for="direccion" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="direccion" name="direccion" value="{{ cliente.direccion }}">
+            <label for="bidones_cantidad" class="form-label">Cant. de bidones en el domicilio</label>
+            <input type="text" class="form-control" id="bidones_cantidad" name="bidones_cantidad" value="{{ cliente.bidones_cantidad }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="observaciones" class="form-label">Observaciones</label>
+            <input type="text" class="form-control" id="observaciones" name="observaciones" value="{{ cliente.observaciones }}">
         </div>
 
         <div class="mb-3">

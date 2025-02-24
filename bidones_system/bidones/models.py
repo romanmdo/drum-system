@@ -8,6 +8,8 @@ class Cliente(models.Model):
     telefono = models.CharField(max_length=15, null=True, blank=True)
     direccion = models.CharField(max_length=100)
     grupo = models.IntegerField()
+    bidones_cantidad = models.CharField(max_length=100)
+    observaciones = models.CharField(max_length=100)
 
     class Meta:
         db_table = "bidones_cliente"
@@ -20,7 +22,6 @@ class Dia(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     bidones_20L = models.IntegerField(default=0)
     bidones_15L = models.IntegerField(default=0)
-    alquila = models.IntegerField(default=0)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2)
     paga = models.DecimalField(max_digits=10, decimal_places=2)
     debe = models.DecimalField(max_digits=10, decimal_places=2) 

@@ -55,24 +55,32 @@
                     <form action="{% url 'nuevo_cliente' grupo=grupo %}" method="POST">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
-                        </div>
-                        <div class="mb-3">
                             <label for="apellido" class="form-label">Apellido</label>
                             <input type="text" class="form-control" id="apellido" name="apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
                         </div>
                         <div class="mb-3">
                             <label for="dni" class="form-label">DNI</label>
                             <input type="number" class="form-control" id="dni" name="dni" required>
                         </div>
                         <div class="mb-3">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion">
+                        </div>
+                        <div class="mb-3">
                             <label for="telefono" class="form-label">Teléfono</label>
                             <input type="text" class="form-control" id="telefono" name="telefono">
                         </div>
                         <div class="mb-3">
-                            <label for="direccion" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="direccion" name="direccion">
+                            <label for="bidones_cantidad" class="form-label">Cant. de bidones en el domicilio</label>
+                            <input type="text" class="form-control" id="bidones_cantidad" name="bidones_cantidad">
+                        </div>
+                        <div class="mb-3">
+                            <label for="observaciones" class="form-label">Observaciones</label>
+                            <input type="text" class="form-control" id="observaciones" name="observaciones">
                         </div>
                         <div class="mb-3">
                             <label for="grupo" class="form-label">Grupo</label>
@@ -91,12 +99,14 @@
             <thead class="table-dark">
                 <tr>
                     <th>#</th>
-                    <th>Nombre</th>
                     <th>Apellido</th>
+                    <th>Nombre</th>
                     <th>DNI</th>
-                    <th>Teléfono</th>
                     <th>Dirección</th>
-                    <th>Pertenece al grupo:</th>
+                    <th>Teléfono</th>
+                    <th>Cant. de bidones en el domicilio</th>
+                    <th>Observaciones</th>
+                    <th>Pertenece al grupo</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -104,11 +114,13 @@
                 {% for cliente in page_obj %}
                     <tr>
                         <th scope="row">{{ cliente.id }}</th>
-                        <td>{{ cliente.nombre }}</td>
                         <td>{{ cliente.apellido }}</td>
+                        <td>{{ cliente.nombre }}</td>
                         <td>{{ cliente.dni }}</td>
-                        <td>{{ cliente.telefono }}</td>
                         <td>{{ cliente.direccion }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>{{ cliente.bidones_cantidad }}</td>
+                        <td>{{ cliente.observaciones }}</td>
                         <td>{{ cliente.grupo }}</td>
                         <td>
                             <div class="d-flex justify-content-center gap-2">
