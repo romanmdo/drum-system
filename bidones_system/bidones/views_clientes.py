@@ -18,7 +18,6 @@ def lista_clientes(request):
     return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj, 'grupo': grupo})
 
 
-
 def nuevo_cliente(request, grupo):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
@@ -29,6 +28,8 @@ def nuevo_cliente(request, grupo):
         bidones_cantidad = request.POST.get('bidones_cantidad')
         observaciones = request.POST.get('observaciones')
 
+        grupo_seleccionado = request.POST.get('grupo')  # ✅ Ahora tomamos el grupo del formulario
+
         if Cliente.objects.filter(nombre=nombre).exists():
             messages.error(request, "El cliente ya está registrado.")
         else:
@@ -38,15 +39,14 @@ def nuevo_cliente(request, grupo):
                 dni=dni,
                 telefono=telefono,
                 direccion=direccion,
-                grupo=grupo,
+                grupo=grupo_seleccionado,  # ✅ Se asigna correctamente el grupo seleccionado
                 bidones_cantidad=bidones_cantidad,
                 observaciones=observaciones
             )
             messages.success(request, "Cliente añadido exitosamente.")
-        return redirect("registro_clientes", grupo=grupo)  # Redirigimos con el 'grupo'
+        return redirect("registro_clientes", grupo=grupo_seleccionado)  # ✅ Se redirige al grupo correcto
     
-    return render(request, 'bidones/nuevo_cliente.html', {'grupo': grupo})  # Pasamos el grupo a la plantilla
-
+    return render(request, 'bidones/nuevo_cliente.html', {'grupo': grupo})
 
 def editar_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
