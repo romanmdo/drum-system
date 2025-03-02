@@ -27,9 +27,10 @@ SECRET_KEY = 'django-insecure-s81p#whkndnh%3kk!su_d*zm*e4zy1pxs5h9i)r*olp!jz)jlp
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.56.1', 
-    'localhost', 
-    '127.0.0.1'
+    '192.168.56.1',
+    'localhost',
+    '127.0.0.1',
+    'romanmdo.pythonanywhere.com'
 ]
 
 
@@ -81,12 +82,12 @@ WSGI_APPLICATION = 'bidones_system.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Backend de MySQL
-        'NAME': 'bidones_system', # Nombre de tu base de datos
-        'USER': 'root',           # Usuario de la base de datos
-        'PASSWORD': 'root',       # Contraseña del usuario
-        'HOST': 'localhost',      # Dirección del host, usa '127.0.0.1' si es local
-        'PORT': '3306',           # Puerto predeterminado de MySQL
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'romanmdo$base_bidones',  # Nombre de la base de datos
+        'USER': 'romanmdo',  # Tu usuario de PythonAnywhere
+        'PASSWORD': 'Momo_Auris_De_Virgo_3754rmh',  # La contraseña que configuraste
+        'HOST': 'romanmdo.mysql.pythonanywhere-services.com',  # Host de MySQL
+        'PORT': '3306',  # Puerto de MySQL
     }
 }
 
