@@ -1,31 +1,44 @@
 .hero-section {
-  margin-top: 5%; }
+  margin-top: 5%; 
+}
 
 .contenedor-logo-manantiales {
   z-index: 100;
-  width: 50%; }
+  width: 50%; 
+}
 
 .logo-manantiales {
   border-radius: 70%;
   width: 50%;
-  border: 2px #000000 solid;
+  border: 2px #0065fc solid;
   background-color: #d2d2d2;
   box-shadow: 8px 8px 20px black;
   transition: 1s all;
   padding: 5%;
   margin-top: 5%;
-  margin-left: 8%; }
+  margin-left: 8%; 
+}
 
 .logo-manantiales:hover {
   box-shadow: 8px 8px 20px #0558fd;
   border: 2px #0F4C81 solid;
-  transform: scale(1.1, 1.1); }
+  transform: scale(.9, .9); 
+}
 
 .pagination {
-  margin-top: 2%; }
+  margin-top: 2%; 
+}
 
+/* Acomodar logo en pantalla de celulares */
 @media screen and (max-width: 768px) {
-  .logo-manantiales {
-    margin-left: 100%; } }
+    .contenedor-logo-manantiales {
+      width: 100%;
+    }
 
-/*# sourceMappingURL=informacion.css.map */
+    .contenedor-logo-manantiales img {
+      margin: auto 0;
+      box-shadow: 0px 0px 0px black;
+    }
+  }
+
+
