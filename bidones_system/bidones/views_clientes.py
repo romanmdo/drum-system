@@ -30,7 +30,7 @@ def nuevo_cliente(request, grupo):
 
         grupo_seleccionado = request.POST.get('grupo')  # ✅ Ahora tomamos el grupo del formulario
 
-        if Cliente.objects.filter(nombre=nombre).exists():
+        if Cliente.objects.filter(direccion=direccion).exists():
             messages.error(request, "El cliente ya está registrado.")
         else:
             Cliente.objects.create(
@@ -48,8 +48,8 @@ def nuevo_cliente(request, grupo):
     
     return render(request, 'bidones/nuevo_cliente.html', {'grupo': grupo})
 
-def editar_cliente(request, cliente_id):
-    cliente = get_object_or_404(Cliente, id=cliente_id)
+def editar_cliente(request, cliente_direccion):
+    cliente = get_object_or_404(Cliente, id=cliente_direccion)
 
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
@@ -61,8 +61,8 @@ def editar_cliente(request, cliente_id):
         bidones_cantidad = request.POST.get('bidones_cantidad')
         observaciones = request.POST.get('observaciones')
 
-        if Cliente.objects.filter(dni=dni).exclude(id=cliente_id).exists():
-            messages.error(request, "El DNI ingresado ya pertenece a otro cliente.")
+        if Cliente.objects.filter(direccion=direccion).exclude(id=cliente_direccion).exists():
+            messages.error(request, "La dirección ingresado ya pertenece a otro cliente.")
         else:
             cliente.nombre = nombre
             cliente.apellido = apellido

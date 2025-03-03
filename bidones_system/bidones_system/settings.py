@@ -30,8 +30,7 @@ ALLOWED_HOSTS = [
     '192.168.56.1',
     'localhost',
     '127.0.0.1',
-    'romanmdo.pythonanywhere.com',
-    'manantialesantacatalina.com'
+    'romanmdo.pythonanywhere.com'
 ]
 
 
