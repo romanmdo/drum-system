@@ -4,7 +4,7 @@ class Cliente(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
-    dni = models.IntegerField(unique=True)
+    dni = models.IntegerField()
     telefono = models.CharField(max_length=15, null=True, blank=True)
     direccion = models.CharField(max_length=100)
     grupo = models.IntegerField()
@@ -24,7 +24,7 @@ class Dia(models.Model):
     bidones_15L = models.IntegerField(default=0)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2)
     paga = models.DecimalField(max_digits=10, decimal_places=2)
-    debe = models.DecimalField(max_digits=10, decimal_places=2) 
+    debe = models.DecimalField(max_digits=10, decimal_places=2)
     fecha = models.DateField(auto_now_add=True)
 
     def __str__(self):

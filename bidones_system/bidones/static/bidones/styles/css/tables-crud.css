@@ -1,3 +1,37 @@
+.crud-titulo {
+  font-family: 'CooVeltica', sans-serif;
+  width: 30%;
+  text-align: center;
+  color: #070707;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  background-size: cover;
+  position: relative;
+  margin-top: 8%; 
+}
+
+.container > button {
+  color: #fffefe;
+  padding: 0.5rem 1.5rem;
+  transition: 1s all;
+  border: none;
+  cursor: pointer;
+  gap: 0.25rem;
+  border-radius: 100px;
+  margin-bottom: 2%; 
+}
+
+.container > button:hover {
+  color: white;
+  background: #0558fd;
+  box-shadow: 4px 4px 15px rgba(0, 0, 255, 0.5);
+}
+
+
 .table-responsive {
   overflow-x: auto; }
 
@@ -8,6 +42,24 @@ table:hover {
   box-shadow: 0 4px 20px rgba(1, 50, 119, 0.92), 0 4px 6px rgba(6, 110, 255, 0.312); }
 
 @media screen and (max-width: 768px) {
+  
+  .tabla-android{
+    width: 100%;
+  }
+
+  .botones-android {
+    margin-left: 5%;
+
+  }
+
+  .botones-android a{
+    flex-wrap: wrap;
+    width: 58%;
+  }
+
+
+
+
   table {
     margin-top: 5%;
     border: 2px #4a38b0 solid; }
