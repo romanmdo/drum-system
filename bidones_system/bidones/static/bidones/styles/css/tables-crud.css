@@ -45,6 +45,9 @@ table:hover {
   box-shadow: 0 4px 20px rgba(1, 50, 119, 0.92), 0 4px 6px rgba(6, 110, 255, 0.312); }
 
 @media screen and (max-width: 768px) {
+  
+  
+  
   .tabla-android-movil{
     width: 100%;
   }
