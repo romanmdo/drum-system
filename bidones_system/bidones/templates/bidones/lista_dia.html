@@ -59,6 +59,12 @@
 
     <div class="container">
         <!-- Modal para añadir pedido -->
+        <form method="get" action="{% url 'lista_dia' grupo %}" class="buscador">
+            <input type="text" name="search" placeholder="Buscar por apellido o fecha" class="border p-2 rounded-lg">
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Buscar</button>
+        </form>
+
+
         <div class="modal fade animated-text" id="add__form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

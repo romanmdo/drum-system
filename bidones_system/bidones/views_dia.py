@@ -133,12 +133,3 @@ def eliminar_dia(request, dia_id):
     dia.delete()  # Eliminar registro
     messages.success(request, "Registro eliminado correctamente.")
     return redirect("lista_dia", grupo=grupo)  # Redirigir a la lista de días
-
-#def buscar_cliente(request):
-#    query = request.GET.get("query", "").strip()  # Obtener la búsqueda y eliminar espacios extra
-#    clientes = Cliente.objects.all()  # Obtener todos los clientes por defecto
-
-#    if query:  # Si hay una búsqueda, filtramos los clientes
-#        clientes = clientes.filter(nombre__icontains=query)  # Busca coincidencias en el nombre
-
-#    return render(request, "bidones/lista_clientes.html", {"clientes": clientes, "query": query})

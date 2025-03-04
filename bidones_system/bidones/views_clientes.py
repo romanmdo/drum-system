@@ -30,8 +30,9 @@ def nuevo_cliente(request, grupo):
 
         grupo_seleccionado = request.POST.get('grupo')  # ✅ Ahora tomamos el grupo del formulario
 
+        # Verificación solo de la dirección
         if Cliente.objects.filter(direccion=direccion).exists():
-            messages.error(request, "El cliente ya está registrado.")
+            messages.error(request, "La dirección ingresada ya pertenece a otro cliente.")
         else:
             Cliente.objects.create(
                 nombre=nombre,
@@ -48,10 +49,12 @@ def nuevo_cliente(request, grupo):
     
     return render(request, 'bidones/nuevo_cliente.html', {'grupo': grupo})
 
-def editar_cliente(request, cliente_direccion):
-    cliente = get_object_or_404(Cliente, id=cliente_direccion)
+
+def editar_cliente(request, cliente_id):
+    cliente = get_object_or_404(Cliente, id=cliente_id)
 
     if request.method == 'POST':
+        # Obtener los datos del formulario
         nombre = request.POST.get('nombre')
         apellido = request.POST.get('apellido')
         dni = request.POST.get('dni')
@@ -61,9 +64,11 @@ def editar_cliente(request, cliente_direccion):
         bidones_cantidad = request.POST.get('bidones_cantidad')
         observaciones = request.POST.get('observaciones')
 
-        if Cliente.objects.filter(direccion=direccion).exclude(id=cliente_direccion).exists():
-            messages.error(request, "La dirección ingresado ya pertenece a otro cliente.")
+        # Comprobar si la dirección ya existe (solo dirección, no el nombre)
+        if Cliente.objects.filter(direccion=direccion).exclude(id=cliente_id).exists():
+            messages.error(request, "La dirección ingresada ya pertenece a otro cliente.")
         else:
+            # Actualizar los datos del cliente
             cliente.nombre = nombre
             cliente.apellido = apellido
             cliente.dni = dni
@@ -72,8 +77,9 @@ def editar_cliente(request, cliente_direccion):
             cliente.grupo = grupo
             cliente.bidones_cantidad = bidones_cantidad
             cliente.observaciones = observaciones
-            cliente.save() 
+            cliente.save()
 
+            # Mensaje de éxito
             messages.success(request, "Cliente actualizado exitosamente.")
             return redirect('registro_clientes', grupo=cliente.grupo)
 
