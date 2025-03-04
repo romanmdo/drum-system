@@ -43,20 +43,16 @@ def superuser_required(user):
 @user_passes_test(superuser_required, login_url='/')
 def lista_dia(request, grupo):
     # Obtener el valor de búsqueda desde el formulario
-    search = request.GET.get('search', '')
+    search = request.GET.get('search', '').strip()
     
     # Filtrar los clientes por grupo
     clientes = Cliente.objects.filter(grupo=grupo)
     
     # Filtrar los registros de días por grupo y por búsqueda (apellido o fecha)
+    dias = Dia.objects.filter(cliente__grupo=grupo)
     if search:
-        dias = Dia.objects.filter(cliente__grupo=grupo) \
-                        .filter(cliente__apellido__icontains=search) | \
-            Dia.objects.filter(cliente__grupo=grupo) \
-                        .filter(fecha__icontains=search)
-    else:
-        dias = Dia.objects.filter(cliente__grupo=grupo)
-    
+        dias = dias.filter(cliente__apellido__icontains=search) | dias.filter(fecha__icontains=search)
+
     # Paginación de los registros de días
     paginator = Paginator(dias.order_by('id'), 10)  # Paginamos a 10 registros de "Día" por página
     page_number = request.GET.get('page')  # Obtiene el número de página de la URL
@@ -66,7 +62,7 @@ def lista_dia(request, grupo):
         'clientes': clientes,
         'dias': page_obj,  # Paginamos los días
         'grupo': grupo,
-        'search': search,  # Para mantener el término de búsqueda en la URL
+        'search': search,  # Mantener el término de búsqueda
     })
 
 @login_required(login_url='/login/')
