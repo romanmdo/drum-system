@@ -24,12 +24,12 @@ def login_view(request):
 def inicio(request):
     return render(request, 'bidones/index.html')
 
-def lista_clientes(request):
-    clientes = Cliente.objects.all()
-    paginator = Paginator(clientes, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
+#def lista_clientes(request):
+#    clientes = Cliente.objects.all()
+#    paginator = Paginator(clientes, 10)
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+#     return render(request, 'bidones/lista_clientes.html', {'page_obj': page_obj})
 
 def ruta(request):
     return render(request, 'bidones/lista_ruta.html')
@@ -67,16 +67,28 @@ def lista_dia(request, grupo):
 
 @login_required(login_url='/login/')
 @user_passes_test(superuser_required, login_url='/')
+@login_required(login_url='/login/')
+@user_passes_test(superuser_required, login_url='/')
 def registro_clientes(request, grupo):
-    # Filtrar los clientes por el grupo correspondiente
-    clientes_list = Cliente.objects.filter(grupo=grupo).order_by('nombre')
-    paginator = Paginator(clientes_list, 5)  # 5 clientes por página
+    # Obtener el término de búsqueda desde el formulario
+    search = request.GET.get('search', '').strip()
+    
+    # Filtrar los clientes por grupo
+    clientes = Cliente.objects.filter(grupo=grupo)
+
+    # Aplicar la búsqueda por apellido o nombre
+    if search:
+        clientes = clientes.filter(apellido__icontains=search) | clientes.filter(nombre__icontains=search)
+
+    # Paginación
+    paginator = Paginator(clientes.order_by('nombre'), 5)  # 5 clientes por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'bidones/lista_clientes.html', {
         'page_obj': page_obj,
-        'grupo': grupo  # Usamos 'grupo' en lugar de 'grupo_id'
+        'grupo': grupo,
+        'search': search  # Mantener el término de búsqueda
     })
 
 

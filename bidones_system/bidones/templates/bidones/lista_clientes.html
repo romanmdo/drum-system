@@ -34,6 +34,12 @@
 </div>
 
 <div>
+    <!-- Modal para añadir pedido -->
+    <!-- Buscador de clientes -->
+    <form method="get" action="{% url 'registro_clientes' grupo %}" class="buscador">
+        <input type="text" name="search" placeholder="Buscar por nombre o apellido" class="border p-2 rounded-lg">            <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg">Buscar</button>
+    </form>
+    
     <!-- Modal para añadir o editar cliente -->
     <div class="modal fade" id="add__form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
