@@ -22,7 +22,6 @@ def nuevo_cliente(request, grupo):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         apellido = request.POST.get('apellido')
-        dni = request.POST.get('dni')
         telefono = request.POST.get('telefono')
         direccion = request.POST.get('direccion')
         bidones_cantidad = request.POST.get('bidones_cantidad')
@@ -37,7 +36,6 @@ def nuevo_cliente(request, grupo):
             Cliente.objects.create(
                 nombre=nombre,
                 apellido=apellido,
-                dni=dni,
                 telefono=telefono,
                 direccion=direccion,
                 grupo=grupo_seleccionado,  # ✅ Se asigna correctamente el grupo seleccionado
@@ -57,7 +55,6 @@ def editar_cliente(request, cliente_id):
         # Obtener los datos del formulario
         nombre = request.POST.get('nombre')
         apellido = request.POST.get('apellido')
-        dni = request.POST.get('dni')
         telefono = request.POST.get('telefono')
         direccion = request.POST.get('direccion')
         grupo = request.POST.get('grupo')
@@ -71,7 +68,6 @@ def editar_cliente(request, cliente_id):
             # Actualizar los datos del cliente
             cliente.nombre = nombre
             cliente.apellido = apellido
-            cliente.dni = dni
             cliente.telefono = telefono
             cliente.direccion = direccion
             cliente.grupo = grupo

@@ -4,7 +4,6 @@ class Cliente(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
-    dni = models.IntegerField()
     telefono = models.CharField(max_length=15, null=True, blank=True)
     direccion = models.CharField(max_length=100)
     grupo = models.IntegerField()
