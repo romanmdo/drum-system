@@ -1,56 +1,50 @@
 # Manantiales Santa Catalina - Customer and Order Management System
 
 ## 📌 Description
-This project is a **customer and order management system** designed for the company **Manantiales Santa Catalina**, optimizing the registration and tracking of water bottle deliveries. It was developed with **Django** and **MySQL**, integrating a modern interface to facilitate its use. Additionally, **AI automation tools** were implemented to improve efficiency in repetitive tasks and minimize human errors.
-
----
+Manantiales Santa Catalina is a customer and order management system designed to optimize the registration and tracking of water bottle deliveries. Built with **Django** and **MySQL**, it integrates a modern and intuitive interface for seamless usability. Additionally, **AI-powered automation** has been implemented to improve efficiency in repetitive tasks and minimize human errors.
 
 ## 🚀 Main Features
-✅ **Customer Management:** Add, delete, and modify customers with an intuitive interface.  
-✅ **Order Registration:** Detailed tracking of orders with automatic calculation of payments and debts.  
-✅ **Advanced Search:** Implementation of a search field to quickly locate customers.  
-✅ **Modern Interface:** Use of Bootstrap for an optimized user experience.  
-✅ **AI Automation:** Integration of AI to optimize repetitive processes and reduce working times.  
-✅ **Security and Scalability:** Use of MySQL to handle large volumes of data and ensure information security.  
-
----
+- ✅ **Customer Management**: Add, delete, and modify customers effortlessly.
+- ✅ **Order Registration**: Track orders with automated payment and debt calculations.
+- ✅ **Advanced Search**: Quickly locate customers using an optimized search system.
+- ✅ **Modern Interface**: Designed with **Bootstrap** for an enhanced user experience.
+- ✅ **AI Automation**: Optimized workflows through AI-driven automation.
+- ✅ **Security & Scalability**: Uses **MySQL** for reliable data handling and security.
 
 ## 🛠️ Technologies Used
-- **Backend:** Django (Python)
-- **Database:** MySQL
-- **Frontend:** Bootstrap, HTML, CSS, JavaScript
-- **Automation:** AI applied to optimize records and calculations
+- **Backend**: Django (Python)
+- **Database**: MySQL
+- **Frontend**: Bootstrap, HTML, CSS, JavaScript
+- **Automation**: AI for process optimization
 
 ---
 
 ## 📌 Installation and Setup
+
 ### 🔹 Prerequisites
-Before starting, make sure you have installed:
-- **Python 3.x**
-- **Django** (`pip install django`)
-- **MySQL Server**
-- **Virtualenv** (optional but recommended)
+Before starting, ensure you have installed:
+- Python 3.x
+- Django (`pip install django`)
+- MySQL Server
+- Virtualenv (optional but recommended)
 
 ### 🔹 Installation Steps
-1️⃣ **Clone the repository**
+#### 1️⃣ Clone the repository
 ```bash
- git clone https://github.com/username/project.git
- cd project
+git clone https://github.com/username/project.git
+cd project
 ```
-
-2️⃣ **Create a virtual environment and activate it**
+#### 2️⃣ Create and activate a virtual environment
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
-
-3️⃣ **Install dependencies**
+#### 3️⃣ Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
-
-4️⃣ **Configure the database**
-Modify the `settings.py` file with your MySQL credentials:
+#### 4️⃣ Configure the database
+Modify the `settings.py` file with your **MySQL** credentials:
 ```python
 DATABASES = {
     'default': {
@@ -63,40 +57,45 @@ DATABASES = {
     }
 }
 ```
-
-5️⃣ **Apply migrations and create a superuser**
+#### 5️⃣ Apply migrations and create a superuser
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 ```
-
-6️⃣ **Run the server**
+#### 6️⃣ Run the server
 ```bash
 python manage.py runserver
 ```
-
 The system will be available at **http://127.0.0.1:8000/** 🚀
 
 ---
 
 ## 🎯 System Usage
 ### 📍 Access the Admin Panel
-🔹 Go to **http://127.0.0.1:8000/admin/** and log in with the superuser created.  
-🔹 From the admin panel, you can manage customers, orders, and more.
+- Go to **http://127.0.0.1:8000/admin/** and log in with the superuser credentials.
+- From the admin panel, manage customers, orders, and other system functionalities.
 
 ### 📍 Key Features
-- **Register customers and orders quickly**
-- **Edit and delete records with a single click**
-- **Advanced search to easily find customers**
-- **Customer order history for better control**
+- Register customers and orders **quickly**.
+- **Edit and delete** records in one click.
+- **Advanced search** for easy customer lookup.
+- **Customer order history** for enhanced tracking.
 
 ---
 
 ## 📦 Deployment to Production
-For deploying to a real server, it is recommended to use **Gunicorn + Nginx** or a cloud service such as **Heroku, AWS, or DonWeb**. Also, make sure to configure `ALLOWED_HOSTS` in `settings.py`.
+For deployment to a real server, it is recommended to use:
+- **Gunicorn + Nginx** for a robust server setup.
+- Cloud services like **Python Anywhere**.
+- Configure `ALLOWED_HOSTS` in **settings.py** to ensure security.
 
 ---
 
 ## 🔗 Contact and Contributions
-If you want to contribute or have questions, contact me on [Instagram](https://www.instagram.com/master.fiix) or send a PR on GitHub. Any help is appreciated! 🚀
+If you'd like to contribute or have questions, feel free to:
+- **Contact me on Instagram** 📩
+- **Submit a pull request on GitHub** 🔧
+
+Any help is greatly appreciated! 🚀
+
